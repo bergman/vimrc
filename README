@@ -1,0 +1,4 @@
+cd
+ln -s Kod/vim/.vimrc.before
+ln -s Kod/vim/.vimrc.after
+ln -s Kod/vim/.gvimrc.after

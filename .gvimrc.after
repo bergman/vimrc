@@ -1,0 +1,27 @@
+if has("gui_macvim")
+  set guifont=Consolas:h13
+  set background=dark
+  colorscheme solarized
+  "set transparency=3
+  set lines=35
+  set columns=120
+
+  " fullscreen maximizes vertically AND horizontally
+  set fuoptions=maxvert,maxhorz
+
+  " Don't focus the window when the mouse pointer is moved.
+  set nomousefocus
+
+  " Hide mouse pointer on insert mode.
+  set mousehide
+
+  " Hide toolbar and menus.
+  set guioptions-=T
+  set guioptions-=m
+
+  " Scrollbar is always off.
+  set guioptions-=rL
+
+  " Enable gui tab labels
+  set guioptions+=e
+endif

@@ -1,0 +1,2 @@
+call janus#disable_plugin('easymotion')
+call janus#disable_plugin('vimwiki')

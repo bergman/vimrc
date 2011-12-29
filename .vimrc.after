@@ -1,0 +1,30 @@
+set background=dark
+colorscheme solarized
+" let mapleader = ","
+set t_Co=256
+" auto-reload files changed on disk.
+set autoread
+function MakeGitCommitStartOnFirstLine()
+  " don't (re)store filepos for git commit message files
+  if &filetype == "gitcommit"
+    call setpos('.', [0, 1, 1, 0])
+  endif
+endfunction
+" make git commit messages always start on first line.
+autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
+" disable blinking cursor
+set gcr=a:blinkon0 
+" highlight matches in a search (hls),
+set hlsearch
+" show the current matching pattern as you search (is),
+set incsearch
+" ignore case (ic) unless you are searching for both upper and lowercase letters (scs).
+set ignorecase smartcase
+
+" highlight current line
+set cursorline
+
+" show command-t window at top
+let g:CommandTMatchWindowAtTop = 1
+
+set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
