@@ -12,8 +12,9 @@ function MakeGitCommitStartOnFirstLine()
 endfunction
 " make git commit messages always start on first line.
 autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
+au FileType haskell setl makeprg=ghc\ %
 " disable blinking cursor
-set gcr=a:blinkon0 
+set gcr=a:blinkon0
 " highlight matches in a search (hls),
 set hlsearch
 " show the current matching pattern as you search (is),
@@ -28,3 +29,50 @@ set cursorline
 let g:CommandTMatchWindowAtTop = 1
 
 set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
+
+" make Y bahve like other capitals
+" http://vimbits.com/bits/11
+map Y y$
+
+" easy split navigation
+" http://vimbits.com/bits/10
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Reselect visual block after indent
+" http://vimbits.com/bits/20
+vnoremap < <gv
+vnoremap > >gv
+
+" Use sane regexes (:h magic)
+" http://vimbits.com/bits/17
+nnoremap / /\v
+vnoremap / /\v
+
+" nnoremap * let @/='\V\<LT>'.escape(expand('<cword>'), '\').'\>'<CR>
+nnoremap * :let @/ = "\\<<C-R><C-W>\\>"<CR>
+
+" Kill tabs and trailing space
+" http://vimbits.com/bits/297
+command! CLEAN retab | %s/ \+$//
+
+" make mouse work
+set mouse=n
+
+set background=dark
+" solarized options
+let g:solarized_termcolors=256
+"let g:solarized_visibility="high"
+"let g:solarized_contrast="high"
+
+" hides buffers instead of closing when switching to a new one
+set hidden
+
+" set tabstop to 2 spaces
+set tabstop=2
+
+" disable swap and backup files
+set nobackup
+set noswapfile
