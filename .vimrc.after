@@ -1,17 +1,17 @@
 set background=dark
 colorscheme solarized
-" let mapleader = ","
+let mapleader = ","
 set t_Co=256
 " auto-reload files changed on disk.
 set autoread
-function MakeGitCommitStartOnFirstLine()
-  " don't (re)store filepos for git commit message files
-  if &filetype == "gitcommit"
-    call setpos('.', [0, 1, 1, 0])
-  endif
-endfunction
-" make git commit messages always start on first line.
-autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
+"function MakeGitCommitStartOnFirstLine()
+"  " don't (re)store filepos for git commit message files
+"  if &filetype == "gitcommit"
+"    call setpos('.', [0, 1, 1, 0])
+"  endif
+"endfunction
+"" make git commit messages always start on first line.
+"autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
 au FileType haskell setl makeprg=ghc\ %
 " disable blinking cursor
 set gcr=a:blinkon0
@@ -25,12 +25,18 @@ set ignorecase smartcase
 " highlight current line
 set cursorline
 
+" highlights column 80, keping lines short!
+set colorcolumn=80
+
 " show command-t window at top
 let g:CommandTMatchWindowAtTop = 1
 
 set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
+if janus#is_plugin_enabled('fugitive')
+  set statusline+=%{fugitive#statusline()}
+endif
 
-" make Y bahve like other capitals
+" make Y behave like other capitals
 " http://vimbits.com/bits/11
 map Y y$
 
@@ -51,15 +57,12 @@ vnoremap > >gv
 nnoremap / /\v
 vnoremap / /\v
 
-" nnoremap * let @/='\V\<LT>'.escape(expand('<cword>'), '\').'\>'<CR>
-nnoremap * :let @/ = "\\<<C-R><C-W>\\>"<CR>
-
 " Kill tabs and trailing space
 " http://vimbits.com/bits/297
 command! CLEAN retab | %s/ \+$//
 
 " make mouse work
-set mouse=n
+" set mouse=n
 
 set background=dark
 " solarized options
@@ -76,3 +79,8 @@ set tabstop=2
 " disable swap and backup files
 set nobackup
 set noswapfile
+
+" map ctrl-p to something else so it wont collide with yankring
+let g:ctrlp_map = '<c-t>'
+" dont manage working dir
+let g:ctrlp_working_path_mode = 0

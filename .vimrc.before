@@ -2,3 +2,5 @@ call janus#disable_plugin('easymotion')
 call janus#disable_plugin('vimwiki')
 let g:NERDMenuMode=0
 let g:solarized_menu=0
+let g:Powerline_symbols = 'fancy'
+set encoding=utf-8
