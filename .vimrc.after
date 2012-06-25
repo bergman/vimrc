@@ -84,3 +84,11 @@ set noswapfile
 let g:ctrlp_map = '<c-t>'
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
+" run find instead of vim glob
+"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+
+au FileType python setlocal foldmethod=indent
+
+set foldminlines=3
+
+filetype indent plugin on

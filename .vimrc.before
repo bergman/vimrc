@@ -1,6 +1,23 @@
+call janus#disable_plugin('buffergator')
+call janus#disable_plugin('css-color')
 call janus#disable_plugin('easymotion')
+call janus#disable_plugin('endwise')
+call janus#disable_plugin('gundo')
+call janus#disable_plugin('indent-object')
+call janus#disable_plugin('kwbd')
+call janus#disable_plugin('matchit')
+call janus#disable_plugin('narrowregion')
+call janus#disable_plugin('nerdcommenter')
+call janus#disable_plugin('nerdtree')
+call janus#disable_plugin('snipmate')
+call janus#disable_plugin('supertab')
+"call janus#disable_plugin('syntastic')
+call janus#disable_plugin('tlib')
+call janus#disable_plugin('vim-addon-mw-utils')
 call janus#disable_plugin('vimwiki')
-let g:NERDMenuMode=0
+call janus#disable_plugin('zoomwin')
+call janus#disable_plugin('rename2')
+call janus#disable_plugin('vroom')
 let g:solarized_menu=0
-let g:Powerline_symbols = 'fancy'
+"let g:Powerline_symbols = 'fancy'
 set encoding=utf-8
