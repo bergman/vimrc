@@ -1,3 +1,5 @@
+git submodule init
+git submodule update
 cd
 ln -s Kod/vim/.vimrc
 ln -s Kod/vim/.vim
