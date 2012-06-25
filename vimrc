@@ -1,10 +1,3 @@
-" map ctrl-p to something else so it wont collide with yankring
-let g:ctrlp_map = '<c-t>'
-" dont manage working dir
-let g:ctrlp_working_path_mode = 0
-" run find instead of vim glob
-"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
-
 call pathogen#infect()
 call pathogen#helptags()
 
@@ -87,4 +80,28 @@ set nobackup
 set noswapfile
 
 nnoremap <leader>l :TagbarToggle<CR>
+" map ctrl-p to something else so it wont collide with yankring
+let g:ctrlp_map = '<c-t>'
+" dont manage working dir
+let g:ctrlp_working_path_mode = 0
+" run find instead of vim glob
+"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
 
+set wildignore+=*.pyc
+
+let ctrlp_filter_greps = "".
+    \ "egrep -iv '\\.(" .
+    \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+    \ ")$' | " .
+    \ "egrep -v '^(\\./)?(" .
+    \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/" .
+    \ ")'"
+let my_ctrlp_git_command = "" .
+    \ "cd %s && git ls-files | " .
+    \ ctrlp_filter_greps
+if has("unix")
+    let my_ctrlp_user_command = "" .
+    \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+    \ ctrlp_filter_greps
+endif
+let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
