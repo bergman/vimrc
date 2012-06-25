@@ -1,9 +1,17 @@
+" map ctrl-p to something else so it wont collide with yankring
+let g:ctrlp_map = '<c-t>'
+" dont manage working dir
+let g:ctrlp_working_path_mode = 0
+" run find instead of vim glob
+"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+
 call pathogen#infect()
 call pathogen#helptags()
 
-syntax enable
 set background=dark
 colorscheme solarized
+
+syntax enable
 let mapleader = ","
 set t_Co=256
 set laststatus=2
@@ -68,11 +76,6 @@ command! CLEAN retab | %s/ \+$//
 " make mouse work
 " set mouse=n
 
-" solarized options
-let g:solarized_termcolors=256
-"let g:solarized_visibility="high"
-"let g:solarized_contrast="high"
-
 " hides buffers instead of closing when switching to a new one
 set hidden
 
@@ -83,10 +86,5 @@ set tabstop=2
 set nobackup
 set noswapfile
 
-" map ctrl-p to something else so it wont collide with yankring
-let g:ctrlp_map = '<c-t>'
-" dont manage working dir
-let g:ctrlp_working_path_mode = 0
-" run find instead of vim glob
-"let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+nnoremap <leader>l :TagbarToggle<CR>
 
