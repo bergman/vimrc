@@ -1,0 +1,13 @@
+https://github.com/altercation/vim-colors-solarized.git
+https://github.com/godlygeek/tabular.git
+https://github.com/kien/ctrlp.vim.git
+https://github.com/majutsushi/tagbar.git
+https://github.com/mileszs/ack.vim.git
+https://github.com/nvie/vim-flake8.git
+https://github.com/scrooloose/syntastic.git
+https://github.com/tpope/vim-commentary.git
+https://github.com/tpope/vim-fugitive.git
+https://github.com/tpope/vim-repeat.git
+https://github.com/tpope/vim-surround.git
+https://github.com/tpope/vim-unimpaired.git
+https://github.com/xolox/vim-easytags.git
