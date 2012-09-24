@@ -2,7 +2,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 set background=dark
-colorscheme solarized
+colorscheme Tomorrow-Night
 
 syntax enable
 filetype indent plugin on
@@ -35,9 +35,11 @@ au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldm
 au FileType haskell setl makeprg=ghc\ %
 let g:syntastic_check_on_open=1
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
-let g:syntastic_python_checker_args='--ignore=E501,E302,E111'
+let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
 " auto-reload files changed on disk.
 set autoread
+" fold comments as well as code (default: #)
+set foldignore=
 function! MakeGitCommitStartOnFirstLine()
   " don't (re)store filepos for git commit message files
   if &filetype == "gitcommit"
@@ -68,11 +70,8 @@ noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
-" Kill tabs and trailing space http://vimbits.com/bits/297
-command! CLEAN retab | %s/ \+$//
-
 " hides buffers instead of closing when switching to a new one
-set hidden
+"set hidden
 
 " set tabstop to 2 spaces
 set tabstop=2
@@ -81,18 +80,33 @@ set tabstop=2
 set nobackup noswapfile
 
 nnoremap <leader>l :TagbarToggle<CR>
-" map ctrl-p to something else so it wont collide with yankring
-let g:ctrlp_map = '<c-t>'
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
-set wildignore+=*.pyc
+set wildignore+=*.pyc,.DS_Store,*.class
 
 " show line numbers
 set nu
-" always use at least 4 characters to show line number
-set numberwidth=4
 
 set history=1000
+
+set splitbelow
+set splitright
+set nowrap
+let g:tagbar_type_scala = {
+    \ 'ctagstype' : 'Scala',
+    \ 'kinds'     : [
+        \ 'p:packages:1',
+        \ 'V:values',
+        \ 'v:variables',
+        \ 'T:types',
+        \ 't:traits',
+        \ 'o:objects',
+        \ 'a:aclasses',
+        \ 'c:classes',
+        \ 'r:cclasses',
+        \ 'm:methods'
+    \ ]
+\ }
