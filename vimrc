@@ -79,6 +79,9 @@ set tabstop=2
 " disable swap and backup files
 set nobackup noswapfile
 
+noremap <Up> <c-y>
+noremap <Down> <c-e>
+
 nnoremap <leader>l :TagbarToggle<CR>
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
