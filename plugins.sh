@@ -18,5 +18,6 @@ git clone https://github.com/tpope/vim-surround.git
 git clone https://github.com/tpope/vim-unimpaired.git
 git clone https://github.com/xolox/vim-easytags.git
 git clone https://github.com/derekwyatt/vim-scala.git
+git clone git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
 
 cd -
