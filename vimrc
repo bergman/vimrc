@@ -33,6 +33,7 @@ augroup END
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
 au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldminlines=2
 au FileType haskell setl makeprg=ghc\ %
+au FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
 let g:syntastic_check_on_open=1
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
 let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
@@ -75,6 +76,7 @@ noremap <C-l> <C-w>l
 
 " set tabstop to 2 spaces
 set tabstop=2
+set shiftwidth=2
 
 " disable swap and backup files
 set nobackup noswapfile
@@ -88,10 +90,10 @@ let g:ctrlp_working_path_mode = 0
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
-set wildignore+=*.pyc,.DS_Store,*.class
+set wildignore+=*.pyc,.DS_Store,*.class,*/node_modules/*
 
-" show line numbers
-set nu
+"" show line numbers
+"set nu
 
 set history=1000
 
