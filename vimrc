@@ -87,13 +87,14 @@ noremap <Down> <c-e>
 nnoremap <leader>l :TagbarToggle<CR>
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_custom_ignore = '*/node_modules/*'
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
-set wildignore+=*.pyc,.DS_Store,*.class,*/node_modules/*
+set wildignore+=*.pyc,.DS_Store,*.class,*/dump/*
 
-"" show line numbers
-"set nu
+" show line numbers
+set nu
 
 set history=1000
 
