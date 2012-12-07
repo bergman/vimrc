@@ -1,3 +1,4 @@
+# cat README | sh
 cd
 ln -s Kod/vim/vimrc ~/.vimrc
 ln -s Kod/vim ~/.vim
