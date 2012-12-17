@@ -66,10 +66,10 @@ set colorcolumn=80
 set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
 
 " easy split navigation http://vimbits.com/bits/10
-noremap <C-h> <C-w>h
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " hides buffers instead of closing when switching to a new one
 "set hidden
