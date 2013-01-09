@@ -54,11 +54,6 @@ au BufEnter * call MakeGitCommitStartOnFirstLine()
 set hlsearch
 " show the current matching pattern as you search (is),
 set incsearch
-" ignore case (ic) unless you are searching for both upper and lowercase letters (scs).
-"set ignorecase smartcase
-
-" highlight current line
-"set cursorline " makes vim really slow to move around and redraw
 
 "" highlights column 80, keeping lines short!
 set colorcolumn=80
@@ -81,13 +76,13 @@ set shiftwidth=2
 " disable swap and backup files
 set nobackup noswapfile
 
-noremap <Up> <c-y>
-noremap <Down> <c-e>
+"noremap <Up> <c-y>
+"noremap <Down> <c-e>
 
 nnoremap <leader>l :TagbarToggle<CR>
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = '*/node_modules/*'
+let g:ctrlp_custom_ignore = 'node_modules'
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
