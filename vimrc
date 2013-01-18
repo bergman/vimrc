@@ -87,6 +87,7 @@ nnoremap <leader>l :TagbarToggle<CR>
 " dont manage working dir
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'node_modules'
+let g:ctrlp_open_multiple_files = '4hjr'
 
 let g:easytags_cmd = '/usr/local/bin/ctags'
 
