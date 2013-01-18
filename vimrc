@@ -1,13 +1,15 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-set background=dark
-colorscheme Tomorrow-Night
-
 syntax enable
+
+set t_Co=256
+colorscheme Tomorrow-Night
+hi Normal ctermbg=none
+hi Folded ctermbg=none
+
 filetype indent plugin on
 let mapleader = ","
-set t_Co=256
 " enable statusbar for all windows
 set laststatus=2
 " Tell vim to remember certain things when we exit
