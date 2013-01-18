@@ -23,6 +23,8 @@ set viminfo='10,\"100,:100,%,n~/.viminfo
 function! ResCur()
   if line("'\"") <= line("$")
     normal! g`"
+		normal! zv
+		normal! zz
     return 1
   endif
 endfunction
