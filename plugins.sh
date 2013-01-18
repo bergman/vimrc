@@ -13,7 +13,7 @@ mkdir -p bundle
 (cd bundle; git clone https://github.com/tpope/vim-fugitive.git)
 #(cd bundle; git clone https://github.com/tpope/vim-repeat.git)
 (cd bundle; git clone https://github.com/tpope/vim-surround.git)
-#(cd bundle; git clone https://github.com/tpope/vim-unimpaired.git)
+(cd bundle; git clone https://github.com/tpope/vim-unimpaired.git)
 #(cd bundle; git clone https://github.com/xolox/vim-easytags.git)
 #(cd bundle; git clone https://github.com/derekwyatt/vim-scala.git)
 (cd bundle; git clone https://github.com/kchmck/vim-coffee-script.git)
