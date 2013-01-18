@@ -19,6 +19,7 @@ set laststatus=2
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:100,%,n~/.viminfo
+
 " restore last position
 function! ResCur()
   if line("'\"") <= line("$")
@@ -28,7 +29,6 @@ function! ResCur()
     return 1
   endif
 endfunction
-
 augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
@@ -36,6 +36,7 @@ augroup END
 
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
 au FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldminlines=2
+
 au FileType haskell setl makeprg=ghc\ %
 au FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
 let g:syntastic_check_on_open=1
