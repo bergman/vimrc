@@ -40,7 +40,7 @@ au FileType haskell setl makeprg=ghc\ %
 au FileType coffee setl foldmethod=indent shiftwidth=2 expandtab
 let g:syntastic_check_on_open=1
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
-let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
+"let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
 " auto-reload files changed on disk.
 set autoread
 " fold comments as well as code (default: #)
