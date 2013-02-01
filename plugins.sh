@@ -2,7 +2,7 @@
 
 mkdir -p bundle
 
-(cd bundle; git clone https://github.com/chriskempson/vim-tomorrow-theme.git)
+(cd bundle; git clone https://github.com/bergman/vim-tomorrow-theme.git)
 (cd bundle; git clone https://github.com/godlygeek/tabular.git)
 (cd bundle; git clone https://github.com/kien/ctrlp.vim.git)
 #(cd bundle; git clone https://github.com/majutsushi/tagbar.git)
@@ -16,4 +16,4 @@ mkdir -p bundle
 (cd bundle; git clone https://github.com/tpope/vim-unimpaired.git)
 #(cd bundle; git clone https://github.com/xolox/vim-easytags.git)
 #(cd bundle; git clone https://github.com/derekwyatt/vim-scala.git)
-(cd bundle; git clone https://github.com/kchmck/vim-coffee-script.git)
+(cd bundle; git clone https://github.com/bergman/vim-coffee-script.git)
