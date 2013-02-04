@@ -100,7 +100,8 @@ set splitright
 set nowrap
 set backspace=indent,eol,start " allow backspacing over these
 set formatoptions-=o " don't continue comments on o/O
-set formatoptions+=j " remove extra comment markers when joining lines
+"set formatoptions+=j " remove extra comment markers when joining lines
+" doesn't work on earlier versions of vim 7.3
 
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'Scala',
