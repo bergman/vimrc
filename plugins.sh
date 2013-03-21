@@ -17,3 +17,4 @@ mkdir -p bundle
 #(cd bundle; git clone https://github.com/xolox/vim-easytags.git)
 #(cd bundle; git clone https://github.com/derekwyatt/vim-scala.git)
 (cd bundle; git clone https://github.com/bergman/vim-coffee-script.git)
+(cd bundle; git clone https://github.com/Lokaltog/vim-powerline.git)

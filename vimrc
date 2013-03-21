@@ -1,4 +1,5 @@
 set nocompatible
+let g:Powerline_symbols = 'fancy'
 
 call pathogen#infect()
 call pathogen#helptags()
