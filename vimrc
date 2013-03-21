@@ -96,6 +96,7 @@ set nu " show line numbers
 
 set history=1000
 
+set fillchars="vert:|,fold:"
 set splitbelow
 set splitright
 set nowrap
