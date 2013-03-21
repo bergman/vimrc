@@ -62,7 +62,7 @@ au BufEnter * call MakeGitCommitStartOnFirstLine()
 set hlsearch " highlight matches in a search (hls),
 set incsearch " show the current matching pattern as you search (is),
 
-set colorcolumn=80 " highlights column 80, keeping lines short!
+"set colorcolumn=80 " highlights column 80, keeping lines short!
 
 set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
 
