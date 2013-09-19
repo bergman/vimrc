@@ -10,6 +10,7 @@ mkdir -p bundle
 (cd bundle; git clone https://github.com/scrooloose/syntastic.git)
 #(cd bundle; git clone https://github.com/tpope/vim-commentary.git)
 (cd bundle; git clone https://github.com/tpope/vim-fugitive.git)
+(cd bundle; git clone https://github.com/tpope/vim-markdown.git)
 #(cd bundle; git clone https://github.com/tpope/vim-repeat.git)
 (cd bundle; git clone https://github.com/tpope/vim-surround.git)
 #(cd bundle; git clone https://github.com/xolox/vim-misc.git) # needed for easytags
