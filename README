@@ -1,4 +1,6 @@
-# cat README | sh
+# clone into ~/.vim
+# sh README
 cd
-ln -s Kod/vim/vimrc ~/.vimrc
-ln -s Kod/vim ~/.vim
+ln -s .vim/vimrc .vimrc
+cd ~/.vim
+sh plugins.sh

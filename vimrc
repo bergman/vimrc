@@ -5,8 +5,24 @@ syntax on
 filetype indent plugin on
 
 set nocompatible
+let g:agprg = 'ag --column --smart-case'
+let g:airline_theme = 'powerlineish'
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+"let g:airline_section_z = 'linenr :%3c' " percentage, line number, column number
+let g:airline_section_z = '%3l,%2c'
+
 let g:Powerline_symbols = 'fancy'
-let g:syntastic_check_on_open=1
+
+"let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
 "let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
@@ -15,8 +31,9 @@ let g:syntastic_always_populate_loc_list=1
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'node_modules'
 let g:ctrlp_open_multiple_files = '4hjr'
-
-let g:easytags_cmd = '/usr/local/bin/ctags --exclude=.git'
+nnoremap <leader>, :CtrlP<CR>
+nnoremap <leader>. :CtrlPTag<CR>
+nnoremap <leader>t :Tagbar<CR>
 
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'Scala',
@@ -170,6 +187,9 @@ nnoremap Ö :
 
 " add @done to end of line
 nnoremap <leader>d mmA @done <C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
+nnoremap <leader>p :set paste!<CR>
+
+nnoremap <leader>h mmA<C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
 
 " vim powerline settings:
 " https://powerline.readthedocs.org/en/latest/tipstricks.html

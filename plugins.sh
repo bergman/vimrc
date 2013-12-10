@@ -1,28 +1,41 @@
 #!/bin/sh
 
-mkdir -p bundle
+bundle=bundle
+mkdir -p $bundle
 
-(cd bundle; git clone https://github.com/bergman/vim-tomorrow-theme.git)
-(cd bundle; git clone https://github.com/godlygeek/tabular.git)
-(cd bundle; git clone https://github.com/kien/ctrlp.vim.git)
-#(cd bundle; git clone https://github.com/majutsushi/tagbar.git)
-(cd bundle; git clone https://github.com/mileszs/ack.vim.git)
-(cd bundle; git clone https://github.com/scrooloose/syntastic.git)
-#(cd bundle; git clone https://github.com/tpope/vim-commentary.git)
-(cd bundle; git clone https://github.com/tpope/vim-fugitive.git)
-(cd bundle; git clone https://github.com/tpope/vim-markdown.git)
-#(cd bundle; git clone https://github.com/tpope/vim-repeat.git)
-(cd bundle; git clone https://github.com/tpope/vim-surround.git)
-#(cd bundle; git clone https://github.com/xolox/vim-misc.git) # needed for easytags
-#(cd bundle; git clone https://github.com/xolox/vim-easytags.git)
-(cd bundle; git clone https://github.com/derekwyatt/vim-scala.git)
-(cd bundle; git clone https://github.com/bergman/vim-coffee-script.git)
-(cd bundle; git clone https://github.com/Lokaltog/vim-powerline.git)
-#(cd bundle; git clone https://github.com/kien/rainbow_parentheses.vim.git)
-(cd bundle; git clone https://github.com/nelstrom/vim-visual-star-search.git)
-(cd bundle; git clone https://github.com/rking/ag.vim)
-#(cd bundle; git clone https://github.com/davidoc/taskpaper.vim.git)
+plugins=(
+	https://github.com/bergman/vim-tomorrow-theme.git
+	https://github.com/godlygeek/tabular.git
+	https://github.com/kien/ctrlp.vim.git
+	https://github.com/majutsushi/tagbar.git
+	https://github.com/mileszs/ack.vim.git
+	https://github.com/scrooloose/syntastic.git
+	https://github.com/tpope/vim-fugitive.git
+	https://github.com/tpope/vim-markdown.git
+	https://github.com/tpope/vim-surround.git
+	https://github.com/derekwyatt/vim-scala.git
+	https://github.com/bergman/vim-coffee-script.git
+	https://github.com/bling/vim-airline.git
+	https://github.com/nelstrom/vim-visual-star-search.git
+	https://github.com/rking/ag.vim
+	https://github.com/nvie/vim-flake8.git
+	https://github.com/hynek/vim-python-pep8-indent.git
+)
 
-# python
-(cd bundle; git clone https://github.com/nvie/vim-flake8.git)
-(cd bundle; git clone https://github.com/hynek/vim-python-pep8-indent.git)
+disabled=(
+	https://github.com/davidoc/taskpaper.vim.git
+	https://github.com/tpope/vim-commentary.git
+	https://github.com/tpope/vim-repeat.git
+	https://github.com/xolox/vim-misc.git
+	https://github.com/xolox/vim-easytags.git
+	https://github.com/Lokaltog/vim-powerline.git
+	https://github.com/kien/rainbow_parentheses.vim.git
+)
+
+for plugin in ${plugins[@]}; do
+	(cd $bundle && git clone "$plugin")
+done
+
+for d in $bundle/*; do
+	(cd $d && git pull --rebase)
+done
