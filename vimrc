@@ -143,7 +143,7 @@ nnoremap <leader>q :cwindow<CR>
 
 set wildignore+=*.pyc,.DS_Store,*.class,*/dump/*
 
-set nu " show line numbers
+"set number " show line numbers
 
 set history=1000
 
@@ -155,13 +155,15 @@ set splitright
 set nowrap
 set backspace=indent,eol,start " allow backspacing over these
 set formatoptions-=o " don't continue comments on o/O
-" doesn't work on earlier versions of vim 7.3
-set formatoptions+=j " remove extra comment markers when joining lines
+if v:version ># 703 || v:version ==# 703 && has('patch541')
+  " doesn't work on vim versions earlier than 7.3.541
+  set formatoptions+=j " remove extra comment markers when joining lines
+endif
 
 noremap Y y$
 " disable shift-k for man pages
 nnoremap K <Nop>
-nnoremap <leader>v :vs $MYVIMRC<CR>
+nnoremap <leader>v :sp $MYVIMRC<CR>
 " show syntax name/type under cursor
 nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -176,11 +178,17 @@ nnoremap [q :cwindow<cr>:cprevious<cr>zx
 nnoremap <leader>1 :t.<cr>Vr=o<cr>
 nnoremap <leader>2 :t.<cr>Vr-o<cr>
 
-" javascript
-" console.log word under cursor
-nnoremap <leader>m yiwOconsole.log("<esc>pa:", <esc>pa)<esc>
-" console.log selected text
-vnoremap <leader>m yOconsole.log("<esc>pa:", <esc>pa)<esc>
+"" javascript
+"" console.log word under cursor
+"nnoremap <leader>m yiwOconsole.log("<esc>pa:", <esc>pa)<esc>
+"" console.log selected text
+"vnoremap <leader>m yOconsole.log("<esc>pa:", <esc>pa)<esc>
+
+" python
+" print word under cursor
+nnoremap <leader>m yiwOprint "<esc>pa: %s" % <esc>pa<esc>
+" print selected text
+vnoremap <leader>m yOprint "<esc>pa: %s" % <esc>pa<esc>
 
 " kolon
 nnoremap Ö :
@@ -189,7 +197,9 @@ nnoremap Ö :
 nnoremap <leader>d mmA @done <C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
 nnoremap <leader>p :set paste!<CR>
 
-nnoremap <leader>h mmA<C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
+"nnoremap <leader>h mmA<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>`m
+nnoremap <leader>h o<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
+nnoremap <leader>H O<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 
 " vim powerline settings:
 " https://powerline.readthedocs.org/en/latest/tipstricks.html
