@@ -53,8 +53,8 @@ let g:tagbar_type_scala = {
 
 set t_Co=256
 colorscheme Tomorrow-Night
-hi Normal ctermbg=none
-hi Folded ctermbg=none
+highlight Normal ctermbg=none
+highlight Folded ctermbg=none
 
 set modeline
 set modelines=3
@@ -85,22 +85,22 @@ augroup resCur
 augroup END
 
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
-autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldminlines=2
-autocmd FileType haskell setl makeprg=ghc\ %
-autocmd FileType javascript setl foldmethod=syntax shiftwidth=2 expandtab nosmartindent formatoptions-=o
-autocmd FileType coffee setl foldmethod=indent shiftwidth=2 expandtab nosmartindent formatoptions-=o
-autocmd InsertLeave *.coffee syn sync fromstart
-autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0
+autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent
+autocmd FileType haskell setlocal makeprg=ghc\ %
+autocmd FileType javascript setlocal foldmethod=syntax shiftwidth=2 expandtab nosmartindent formatoptions-=o
+autocmd FileType coffee setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent formatoptions-=o
+autocmd InsertLeave *.coffee syntax sync fromstart
+autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
 
-autocmd FileType coffee hi coffeeThinArrow ctermbg=Blue ctermfg=Black
-autocmd FileType coffee syn match coffeeThinArrow /->/
-autocmd FileType coffee hi coffeeFatArrow ctermbg=Brown ctermfg=Black
-autocmd FileType coffee syn match coffeeFatArrow /=>/
-autocmd FileType coffee hi coffeeConsole ctermfg=Magenta
-autocmd FileType coffee syn match coffeeConsole /\<console\>/
-autocmd FileType coffee syn match coffeeSpaceError /^\t\+/
+autocmd FileType coffee highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
+autocmd FileType coffee syntax match coffeeThinArrow /->/
+autocmd FileType coffee highlight coffeeFatArrow ctermbg=Brown ctermfg=Black
+autocmd FileType coffee syntax match coffeeFatArrow /=>/
+autocmd FileType coffee highlight coffeeConsole ctermfg=Magenta
+autocmd FileType coffee syntax match coffeeConsole /\<console\>/
+autocmd FileType coffee syntax match coffeeSpaceError /^\t\+/
 highlight Todo ctermbg=Magenta ctermfg=Black
-autocmd BufEnter * syn match Done /.*@done/
+autocmd BufEnter * syntax match Done /.*@done/
 highlight Done ctermfg=Darkgray
 
 set autoread " auto-reload files changed on disk.
