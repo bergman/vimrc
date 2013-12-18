@@ -117,8 +117,8 @@ endfunction
 " make git commit messages always start on first line.
 au BufEnter * call MakeGitCommitStartOnFirstLine()
 
-set hlsearch " highlight matches in a search (hls),
-set incsearch " show the current matching pattern as you search (is),
+set hlsearch " highlight matches in a search (hls)
+set incsearch " show the current matching pattern as you search (is)
 
 "set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
 
@@ -143,7 +143,7 @@ nnoremap <leader>q :cwindow<CR>
 
 set wildignore+=*.pyc,.DS_Store,*.class,*/dump/*
 
-"set number " show line numbers
+set number " show line numbers
 
 set history=1000
 
