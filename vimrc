@@ -5,22 +5,21 @@ syntax on
 filetype indent plugin on
 
 set nocompatible
-let g:agprg = 'ag --column --smart-case'
-let g:airline_theme = 'powerlineish'
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
-"let g:airline_section_z = 'linenr :%3c' " percentage, line number, column number
-let g:airline_section_z = '%3l,%2c'
 
-let g:Powerline_symbols = 'fancy'
+set t_Co=256
+colorscheme base16-tomorrow
+"colorscheme Tomorrow-Night
+highlight Normal ctermbg=none
+highlight Folded ctermbg=none
+
+let g:agprg = 'ag --column --smart-case'
+let g:airline_section_z = '%3l,%2c'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'badwolf'
+"let g:airline_theme = 'powerlineish'
+
+set background=dark
 
 "let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
@@ -31,7 +30,7 @@ let g:syntastic_always_populate_loc_list=1
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'node_modules'
 let g:ctrlp_open_multiple_files = '4hjr'
-nnoremap <leader>, :CtrlP<CR>
+let g:ctrlp_map = '<leader>,'
 nnoremap <leader>. :CtrlPTag<CR>
 nnoremap <leader>t :Tagbar<CR>
 
@@ -51,11 +50,6 @@ let g:tagbar_type_scala = {
     \ ]
 \ }
 
-set t_Co=256
-colorscheme Tomorrow-Night
-highlight Normal ctermbg=none
-highlight Folded ctermbg=none
-
 set modeline
 set modelines=3
 
@@ -68,11 +62,11 @@ set laststatus=2
 "  :100 :  up to 100 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:100,%,n~/.viminfo 
+set viminfo='10,\"100,:1000,%,n~/.viminfo
 
 " restore last position
 function! ResCur()
-  if line("'\"") <= line("$")
+  if line("'\"") > 0 && line("'\"") <= line("$")
     normal! g`"
     normal! zx
     normal! zz
@@ -141,7 +135,7 @@ set nobackup noswapfile
 nnoremap <leader>l :lwindow<CR>
 nnoremap <leader>q :cwindow<CR>
 
-set wildignore+=*.pyc,.DS_Store,*.class,*/dump/*
+set wildignore+=*.pyc,.DS_Store,*.class,*/dump/*,*/.git/*
 
 set number " show line numbers
 
@@ -163,7 +157,7 @@ endif
 noremap Y y$
 " disable shift-k for man pages
 nnoremap K <Nop>
-nnoremap <leader>v :sp $MYVIMRC<CR>
+nnoremap <leader>v :tabe $MYVIMRC<CR>
 " show syntax name/type under cursor
 nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -220,3 +214,5 @@ set foldtext=MyFoldText()
 function! MyFoldText()
   return getline(v:foldstart) . ' ...'
 endfunction
+
+set tags=.tags

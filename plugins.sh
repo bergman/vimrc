@@ -20,6 +20,8 @@ plugins=(
 	https://github.com/rking/ag.vim
 	https://github.com/nvie/vim-flake8.git
 	https://github.com/hynek/vim-python-pep8-indent.git
+	https://github.com/tpope/vim-vinegar.git
+	https://github.com/chriskempson/base16-vim.git
 )
 
 disabled=(
