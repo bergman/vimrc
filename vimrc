@@ -7,6 +7,7 @@ filetype indent plugin on
 set nocompatible
 
 set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
 "colorscheme Tomorrow-Night
 highlight Normal ctermbg=none
