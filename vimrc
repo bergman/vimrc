@@ -202,20 +202,27 @@ nnoremap <leader>H O<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 " https://powerline.readthedocs.org/en/latest/tipstricks.html
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
-" make esc faster
-if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
+set timeoutlen=1000 ttimeoutlen=10
+
+"" make esc faster
+"if ! has('gui_running')
+"    set timeoutlen=10
+"    augroup FastEscape
+"        autocmd!
+"        au InsertEnter * set timeoutlen=0
+"        au InsertLeave * set timeoutlen=1000
+"    augroup END
+"endif
 
 " Set a nicer foldtext function
 set foldtext=MyFoldText()
 function! MyFoldText()
-  return getline(v:foldstart) . ' ...'
+  let maxwidth = 80
+  let endtext = (v:foldend - v:foldstart + 1) . ' lines'
+  let linetext = strpart(getline(v:foldstart), 0, -3 + maxwidth - len(endtext))
+  let textlength = len(linetext)
+  return linetext . repeat(' ', 80 - textlength - len(endtext)) . endtext
 endfunction
 
 set tags=.tags
+let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
