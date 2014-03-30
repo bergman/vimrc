@@ -1,8 +1,7 @@
 " vim: foldmethod=marker et
 
 filetype off
-
-" plug-ins {{{
+" Plug-ins {{{
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Plugin 'bling/vim-airline.git'
@@ -22,20 +21,26 @@ Plugin 'tpope/vim-markdown.git'
 Plugin 'tpope/vim-surround.git'
 Plugin 'tpope/vim-vinegar.git'
 Plugin 'wavded/vim-stylus.git'
-" }}}
-
+"}}}
+set nocompatible
+"{{{ Look and feel
 syntax on
 filetype indent plugin on
-
-set nocompatible
-
 set background=dark
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
+set background=dark
+highlight MatchParen ctermbg=19
+" LEFT:
+" relative filename, [help][modified][readonly] arguments (file 1 of 3)
+" RIGHT:
+" 
+"set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
 
-let g:agprg = 'ag --column --smart-case'
-
+highlight SpecialKey ctermfg=19
+"}}}
+"{{{ Airline
 let g:airline_section_z = '%3l,%2c'
 let g:airline_theme = 'badwolf'
 let g:airline_left_sep=''
@@ -45,22 +50,14 @@ let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = '|'
-
-set background=dark
-"highlight StatusLine ctermfg=0 ctermbg=17
-"highlight StatusLineNC ctermfg=20 ctermbg=18
-
-"highlight Normal ctermbg=none
-"highlight Folded ctermbg=none
-
-highlight MatchParen ctermbg=19
-highlight SpecialKey ctermfg=19
-
+"}}}
+let g:agprg = 'ag --column --smart-case'
+"{{{ Syntastic
 "let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
 "let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
-
+"}}}
 set wildmode=longest,list,full
 set wildmenu
 
@@ -71,6 +68,7 @@ if has('persistent_undo')
   set undoreload=10000        " number of lines to save for undo
 endif
 
+" Ctrl-p"{{{
 " dont manage working dir
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:100'
 let g:ctrlp_working_path_mode = 0
@@ -80,9 +78,13 @@ nnoremap <silent> <leader>, :let g:ctrlp_default_input = ''<cr>:CtrlP<cr>
 nnoremap <silent> <leader>. :let g:ctrlp_default_input = ''<cr>:CtrlPTag<cr>
 nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:CtrlPTag<cr>
 nnoremap <silent> <leader><space> :nohlsearch<cr>
+"}}}
 
+"{{{ Utilities
+" sort words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
-
+"}}}
+"{{{ Scala
 let g:tagbar_type_scala = {
     \ 'ctagstype' : 'Scala',
     \ 'kinds'     : [
@@ -98,7 +100,7 @@ let g:tagbar_type_scala = {
         \ 'm:methods'
     \ ]
 \ }
-
+"}}}
 set modeline
 set modelines=3
 
@@ -136,7 +138,7 @@ autocmd FileType javascript setlocal foldmethod=indent shiftwidth=2 expandtab no
 "autocmd FileType coffee setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
 "autocmd InsertLeave *.coffee syntax sync fromstart
 "autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
-
+"{{{ Coffeescript
 " coffeescript custom stuff, mark thin and fat arrows differently
 autocmd FileType coffee highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
 autocmd FileType coffee syntax match coffeeThinArrow /->/
@@ -145,7 +147,7 @@ autocmd FileType coffee syntax match coffeeFatArrow /=>/
 autocmd FileType coffee highlight coffeeConsole ctermfg=Magenta
 autocmd FileType coffee syntax match coffeeConsole /\<console\>/
 autocmd FileType coffee syntax match coffeeSpaceError /^\t\+/
-
+"}}}
 highlight Todo ctermbg=Magenta ctermfg=Black
 autocmd BufEnter * syntax match Done /.*@done/
 highlight Done ctermfg=Darkgray
@@ -168,12 +170,6 @@ au BufEnter * call MakeGitCommitStartOnFirstLine()
 
 set hlsearch " highlight matches in a search (hls)
 set incsearch " show the current matching pattern as you search (is)
-
-" LEFT:
-" relative filename, [help][modified][readonly] arguments (file 1 of 3)
-" RIGHT:
-" 
-set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
 
 " easy split navigation http://vimbits.com/bits/10
 nnoremap <C-h> <C-w>h
