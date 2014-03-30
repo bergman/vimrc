@@ -1,6 +1,29 @@
+" vim: foldmethod=marker et
+
 filetype off
-execute pathogen#infect()
-execute pathogen#helptags()
+
+" plug-ins {{{
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Plugin 'bling/vim-airline.git'
+Plugin 'chriskempson/base16-vim.git'
+Plugin 'derekwyatt/vim-scala.git'
+Plugin 'godlygeek/tabular.git'
+Plugin 'hynek/vim-python-pep8-indent.git'
+Plugin 'kchmck/vim-coffee-script.git'
+Plugin 'kien/ctrlp.vim.git'
+Plugin 'nelstrom/vim-visual-star-search.git'
+Plugin 'nvie/vim-flake8.git'
+Plugin 'rking/ag.vim'
+Plugin 'scrooloose/syntastic.git'
+Plugin 'sprsquish/thrift.vim.git'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'tpope/vim-markdown.git'
+Plugin 'tpope/vim-surround.git'
+Plugin 'tpope/vim-vinegar.git'
+Plugin 'wavded/vim-stylus.git'
+" }}}
+
 syntax on
 filetype indent plugin on
 
