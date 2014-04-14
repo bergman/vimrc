@@ -23,6 +23,14 @@ Plugin 'tpope/vim-vinegar.git'
 Plugin 'wavded/vim-stylus.git'
 "}}}
 set nocompatible
+"{{{ Searching
+set ignorecase " ignore case in searches
+set smartcase " ignore case unless at least one upper case char
+set hlsearch " highlight matches in a search (hls)
+set incsearch " show the current matching pattern as you search (is)
+nnoremap <silent> <leader><space> :nohlsearch<cr>
+let g:agprg = 'ag --column --smart-case'
+"}}}
 "{{{ Look and feel
 syntax on
 filetype indent plugin on
@@ -31,14 +39,44 @@ set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
 set background=dark
-highlight MatchParen ctermbg=19
+highlight MatchParen ctermbg=1
+highlight SpecialKey ctermfg=19
 " LEFT:
 " relative filename, [help][modified][readonly] arguments (file 1 of 3)
 " RIGHT:
 " 
 "set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
 
-highlight SpecialKey ctermfg=19
+" enable statusbar for all windows
+set laststatus=2
+
+" hides buffers instead of closing when switching to a new one
+set hidden
+
+" what to save in sessions, default except no options
+set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
+
+" set tabstop to 2 spaces
+set tabstop=2
+set shiftwidth=2
+
+" disable swap and backup files
+set nobackup noswapfile
+
+set number " show line numbers
+
+set listchars=trail:-,tab:>-
+set list
+set fillchars="vert:|,fold:"
+set splitbelow
+set splitright
+set nowrap
+set backspace=indent,eol,start " allow backspacing over these
+set formatoptions-=o " don't continue comments on o/O
+if v:version ># 703 || v:version ==# 703 && has('patch541')
+  " doesn't work on vim versions earlier than 7.3.541
+  set formatoptions+=j " remove extra comment markers when joining lines
+endif
 "}}}
 "{{{ Airline
 let g:airline_section_z = '%3l,%2c'
@@ -46,12 +84,15 @@ let g:airline_theme = 'badwolf'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#tabline#enabled = 0
-let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#tab_min_count = 0
+let g:airline#extensions#tagbar#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 "}}}
-let g:agprg = 'ag --column --smart-case'
 "{{{ Syntastic
 "let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
@@ -60,26 +101,25 @@ let g:syntastic_always_populate_loc_list=1
 "}}}
 set wildmode=longest,list,full
 set wildmenu
-
+set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
+"{{{ Undo
 if has('persistent_undo')
   set undofile                " Save undo's after file closes
   set undodir=~/.vim/undo " where to save undo histories
   set undolevels=1000         " How many undos
   set undoreload=10000        " number of lines to save for undo
 endif
-
-" Ctrl-p"{{{
+"}}}
+"{{{ Ctrl-P
 " dont manage working dir
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:100'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'node_modules'
 let g:ctrlp_open_multiple_files = '4hjr'
 nnoremap <silent> <leader>, :let g:ctrlp_default_input = ''<cr>:CtrlP<cr>
-nnoremap <silent> <leader>. :let g:ctrlp_default_input = ''<cr>:CtrlPTag<cr>
+nnoremap <silent> <leader>. :let g:ctrlp_default_input = '^'<cr>:CtrlPTag<cr>
 nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:CtrlPTag<cr>
-nnoremap <silent> <leader><space> :nohlsearch<cr>
 "}}}
-
 "{{{ Utilities
 " sort words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
@@ -103,9 +143,6 @@ let g:tagbar_type_scala = {
 "}}}
 set modeline
 set modelines=3
-
-" enable statusbar for all windows
-set laststatus=2
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -168,49 +205,16 @@ endfunction
 " make git commit messages always start on first line.
 au BufEnter * call MakeGitCommitStartOnFirstLine()
 
-set hlsearch " highlight matches in a search (hls)
-set incsearch " show the current matching pattern as you search (is)
-
 " easy split navigation http://vimbits.com/bits/10
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" hides buffers instead of closing when switching to a new one
-set hidden
-
-" what to save in sessions, default except no options
-set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
-
-" set tabstop to 2 spaces
-set tabstop=2
-set shiftwidth=2
-
-" disable swap and backup files
-set nobackup noswapfile
-
 nnoremap <leader>l :lwindow<CR>
 nnoremap <leader>q :cwindow<CR>
 
-set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
-
-set number " show line numbers
-
 set history=1000
-
-set listchars=trail:-,tab:>-
-set list
-set fillchars="vert:|,fold:"
-set splitbelow
-set splitright
-set nowrap
-set backspace=indent,eol,start " allow backspacing over these
-set formatoptions-=o " don't continue comments on o/O
-if v:version ># 703 || v:version ==# 703 && has('patch541')
-  " doesn't work on vim versions earlier than 7.3.541
-  set formatoptions+=j " remove extra comment markers when joining lines
-endif
 
 noremap Y y$
 " disable shift-k for man pages
@@ -252,10 +256,6 @@ nnoremap <leader>p :set paste!<CR>
 "nnoremap <leader>h mmA<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>`m
 nnoremap <leader>h o<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 nnoremap <leader>H O<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
-
-" vim powerline settings:
-" https://powerline.readthedocs.org/en/latest/tipstricks.html
-"set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
 set timeoutlen=1000 ttimeoutlen=10
 
