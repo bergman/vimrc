@@ -44,7 +44,7 @@ highlight SpecialKey ctermfg=19
 " LEFT:
 " relative filename, [help][modified][readonly] arguments (file 1 of 3)
 " RIGHT:
-" 
+" NOTHING
 "set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
 
 " enable statusbar for all windows
@@ -80,14 +80,19 @@ endif
 "}}}
 "{{{ Airline
 let g:airline_section_z = '%3l,%2c'
-let g:airline_theme = 'badwolf'
+let g:airline_theme = 'base16'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline#extensions#branch#enabled = 0
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_min_count = 0
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 
