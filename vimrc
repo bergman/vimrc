@@ -39,7 +39,7 @@ set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
 set background=dark
-highlight MatchParen ctermbg=1
+highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
 " LEFT:
 " relative filename, [help][modified][readonly] arguments (file 1 of 3)
