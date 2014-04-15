@@ -101,6 +101,7 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 "{{{ Syntastic
 "let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
+let g:syntastic_python_checkers = ['frosted', 'flake8']
 "let g:syntastic_python_checker_args='--ignore=E501,E302'
 "let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
 "}}}
