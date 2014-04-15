@@ -17,6 +17,7 @@ Plugin 'rking/ag.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
@@ -50,6 +51,10 @@ highlight SpecialKey ctermfg=19
 " enable statusbar for all windows
 set laststatus=2
 
+set wildmode=longest,list,full
+set wildmenu
+set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
+
 " hides buffers instead of closing when switching to a new one
 set hidden
 
@@ -77,6 +82,19 @@ if v:version ># 703 || v:version ==# 703 && has('patch541')
   " doesn't work on vim versions earlier than 7.3.541
   set formatoptions+=j " remove extra comment markers when joining lines
 endif
+
+" Make Y behave like C, D etc instead of like S
+noremap Y y$
+
+" Set a nicer foldtext function
+set foldtext=MyFoldText()
+function! MyFoldText()
+  let maxwidth = 80
+  let endtext = (v:foldend - v:foldstart + 1) . ' lines'
+  let linetext = strpart(getline(v:foldstart), 0, -3 + maxwidth - len(endtext))
+  let textlength = len(linetext)
+  return linetext . repeat(' ', 80 - textlength - len(endtext)) . endtext
+endfunction
 "}}}
 "{{{ Airline
 let g:airline_section_z = '%3l,%2c'
@@ -102,12 +120,7 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 "let g:syntastic_check_on_open=1
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_python_checkers = ['frosted', 'flake8']
-"let g:syntastic_python_checker_args='--ignore=E501,E302'
-"let g:syntastic_python_checker_args='--ignore=E501,E302,E111,E303'
 "}}}
-set wildmode=longest,list,full
-set wildmenu
-set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 "{{{ Undo
 if has('persistent_undo')
   set undofile                " Save undo's after file closes
@@ -180,9 +193,9 @@ set expandtab
 autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldlevelstart=0
 autocmd FileType haskell setlocal makeprg=ghc\ %
 autocmd FileType javascript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
-"autocmd FileType coffee setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
+autocmd FileType coffee setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
 "autocmd InsertLeave *.coffee syntax sync fromstart
-"autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
+autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
 "{{{ Coffeescript
 " coffeescript custom stuff, mark thin and fat arrows differently
 autocmd FileType coffee highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
@@ -193,25 +206,32 @@ autocmd FileType coffee highlight coffeeConsole ctermfg=Magenta
 autocmd FileType coffee syntax match coffeeConsole /\<console\>/
 autocmd FileType coffee syntax match coffeeSpaceError /^\t\+/
 "}}}
+
 highlight Todo ctermbg=Magenta ctermfg=Black
+
+" for taskpaper format
 autocmd BufEnter * syntax match Done /.*@done/
 highlight Done ctermfg=Darkgray
+" add @done to end of line
+nnoremap <leader>d mmA @done <C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
+
 setlocal formatoptions-=o
 set formatoptions-=o
 
-set autoread " auto-reload files changed on disk.
+" auto-reload files changed on disk.
+set autoread
 
-set foldignore= " fold comments as well as code (default: #)
+" fold comments as well as code (default: #)
+set foldignore=
+
+autocmd FileType gitcommit DiffGitCached | wincmd L | wincmd p
 
 function! MakeGitCommitStartOnFirstLine()
-  " don't (re)store filepos for git commit message files
   if &filetype == "gitcommit"
     call setpos('.', [0, 1, 1, 0])
   endif
 endfunction
-
-" make git commit messages always start on first line.
-au BufEnter * call MakeGitCommitStartOnFirstLine()
+autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
 
 " easy split navigation http://vimbits.com/bits/10
 nnoremap <C-h> <C-w>h
@@ -224,10 +244,12 @@ nnoremap <leader>q :cwindow<CR>
 
 set history=1000
 
-noremap Y y$
 " disable shift-k for man pages
 nnoremap K <Nop>
+
+" open ~/.vimrc with leader-v
 nnoremap <leader>v :tabe $MYVIMRC<CR>
+
 " show syntax name/type under cursor
 nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -257,8 +279,6 @@ autocmd FileType python vnoremap <leader>m yoprint "<esc>pa: %s" % <esc>pa<esc>
 " kolon
 nnoremap Ö :
 
-" add @done to end of line
-nnoremap <leader>d mmA @done <C-R>=strftime("%Y-%m-%d %H:%M")<cr><esc>`m
 nnoremap <leader>p :set paste!<CR>
 
 "nnoremap <leader>h mmA<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>`m
@@ -276,16 +296,6 @@ set timeoutlen=1000 ttimeoutlen=10
 "        au InsertLeave * set timeoutlen=1000
 "    augroup END
 "endif
-
-" Set a nicer foldtext function
-set foldtext=MyFoldText()
-function! MyFoldText()
-  let maxwidth = 80
-  let endtext = (v:foldend - v:foldstart + 1) . ' lines'
-  let linetext = strpart(getline(v:foldstart), 0, -3 + maxwidth - len(endtext))
-  let textlength = len(linetext)
-  return linetext . repeat(' ', 80 - textlength - len(endtext)) . endtext
-endfunction
 
 set tags=.tags
 let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
