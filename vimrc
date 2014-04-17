@@ -173,20 +173,6 @@ set modelines=3
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:1000,%,n~/.viminfo
 
-" restore last position
-function! ResCur()
-  if line("'\"") > 0 && line("'\"") <= line("$")
-    normal! g`"
-    normal! zx
-    normal! zz
-    return 1
-  endif
-endfunction
-augroup resCur
-  autocmd!
-  autocmd BufWinEnter * call ResCur()
-augroup END
-
 " defaults, space instead of tabs
 set expandtab
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
@@ -225,13 +211,23 @@ set autoread
 set foldignore=
 
 autocmd FileType gitcommit DiffGitCached | wincmd L | wincmd p
+autocmd FileType gitcommit autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
-function! MakeGitCommitStartOnFirstLine()
-  if &filetype == "gitcommit"
-    call setpos('.', [0, 1, 1, 0])
+" restore last position
+function! ResCur()
+  if line("'\"") > 0 && line("'\"") <= line("$")
+    " go to last known position
+    normal! g`"
+    " fold everything else
+    normal! zx
+    " center line
+    normal! zz
   endif
 endfunction
-autocmd BufEnter * call MakeGitCommitStartOnFirstLine()
+augroup resCur
+  autocmd!
+  autocmd BufWinEnter * call ResCur()
+augroup END
 
 " easy split navigation http://vimbits.com/bits/10
 nnoremap <C-h> <C-w>h
@@ -292,8 +288,8 @@ set timeoutlen=1000 ttimeoutlen=10
 "    set timeoutlen=10
 "    augroup FastEscape
 "        autocmd!
-"        au InsertEnter * set timeoutlen=0
-"        au InsertLeave * set timeoutlen=1000
+"        autocmd InsertEnter * set timeoutlen=0
+"        autocmd InsertLeave * set timeoutlen=1000
 "    augroup END
 "endif
 
