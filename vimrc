@@ -173,6 +173,9 @@ set modelines=3
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:1000,%,n~/.viminfo
 
+" command history
+set history=1000
+
 " defaults, space instead of tabs
 set expandtab
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
@@ -195,7 +198,7 @@ autocmd FileType coffee syntax match coffeeSpaceError /^\t\+/
 
 highlight Todo ctermbg=Magenta ctermfg=Black
 
-" for taskpaper format
+" taskpaper
 autocmd BufEnter * syntax match Done /.*@done/
 highlight Done ctermfg=Darkgray
 " add @done to end of line
@@ -238,7 +241,6 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>l :lwindow<CR>
 nnoremap <leader>q :cwindow<CR>
 
-set history=1000
 
 " disable shift-k for man pages
 nnoremap K <Nop>
@@ -272,7 +274,7 @@ autocmd FileType python nnoremap <leader>m yiwoprint "<esc>pa: %s" % <esc>pa<esc
 " print selected text
 autocmd FileType python vnoremap <leader>m yoprint "<esc>pa: %s" % <esc>pa<esc>
 
-" kolon
+" mappa svenska Ö till kolon om man råkar köra svenskt tangentbord
 nnoremap Ö :
 
 nnoremap <leader>p :set paste!<CR>
