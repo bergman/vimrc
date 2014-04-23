@@ -95,6 +95,9 @@ function! MyFoldText()
   let textlength = len(linetext)
   return linetext . repeat(' ', 80 - textlength - len(endtext)) . endtext
 endfunction
+
+" open preview window with tag under cursor
+nnoremap <silent> <leader>o <c-w>}
 "}}}
 "{{{ Airline
 let g:airline_section_z = '%3l,%2c'
@@ -257,6 +260,8 @@ nnoremap ]l :lwindow<cr>:lnext<cr>zx
 nnoremap [l :lwindow<cr>:lprevious<cr>zx
 nnoremap ]q :cwindow<cr>:cnext<cr>zx
 nnoremap [q :cwindow<cr>:cprevious<cr>zx
+nnoremap ]t :ptnext<cr>
+nnoremap [t :ptprevious<cr>
 
 " markdown headers
 nnoremap <leader>1 :t.<cr>Vr=o<cr>
