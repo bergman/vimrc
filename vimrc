@@ -1,4 +1,4 @@
-" vim: foldmethod=marker et
+" vim: filetype=vim foldmethod=marker et
 
 filetype off
 " Plug-ins {{{
@@ -42,11 +42,12 @@ colorscheme base16-tomorrow
 set background=dark
 highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
-" LEFT:
-" relative filename, [help][modified][readonly] arguments (file 1 of 3)
-" RIGHT:
-" NOTHING
-"set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
+
+" netrw tree listing
+let g:netrw_liststyle=3
+
+set modeline
+set modelines=3
 
 " enable statusbar for all windows
 set laststatus=2
@@ -56,10 +57,13 @@ set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " hides buffers instead of closing when switching to a new one
-set hidden
+"set hidden
 
 " what to save in sessions, default except no options
 set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
+
+" defaults, space instead of tabs
+set expandtab
 
 " set tabstop to 2 spaces
 set tabstop=2
@@ -148,25 +152,6 @@ nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:C
 " sort words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
 "}}}
-"{{{ Scala
-let g:tagbar_type_scala = {
-    \ 'ctagstype' : 'Scala',
-    \ 'kinds'     : [
-        \ 'p:packages:1',
-        \ 'V:values',
-        \ 'v:variables',
-        \ 'T:types',
-        \ 't:traits',
-        \ 'o:objects',
-        \ 'a:aclasses',
-        \ 'c:classes',
-        \ 'r:cclasses',
-        \ 'm:methods'
-    \ ]
-\ }
-"}}}
-set modeline
-set modelines=3
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
@@ -178,26 +163,6 @@ set viminfo='10,\"100,:1000,%,n~/.viminfo
 
 " command history
 set history=1000
-
-" defaults, space instead of tabs
-set expandtab
-" make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
-autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldlevelstart=0
-autocmd FileType haskell setlocal makeprg=ghc\ %
-autocmd FileType javascript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
-autocmd FileType coffee setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
-"autocmd InsertLeave *.coffee syntax sync fromstart
-autocmd FileType markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
-"{{{ Coffeescript
-" coffeescript custom stuff, mark thin and fat arrows differently
-autocmd FileType coffee highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
-autocmd FileType coffee syntax match coffeeThinArrow /->/
-autocmd FileType coffee highlight coffeeFatArrow ctermbg=Brown ctermfg=Black
-autocmd FileType coffee syntax match coffeeFatArrow /=>/
-autocmd FileType coffee highlight coffeeConsole ctermfg=Magenta
-autocmd FileType coffee syntax match coffeeConsole /\<console\>/
-autocmd FileType coffee syntax match coffeeSpaceError /^\t\+/
-"}}}
 
 highlight Todo ctermbg=Magenta ctermfg=Black
 
@@ -215,9 +180,6 @@ set autoread
 
 " fold comments as well as code (default: #)
 set foldignore=
-
-autocmd FileType gitcommit DiffGitCached | wincmd L | wincmd p
-autocmd FileType gitcommit autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
 " restore last position
 function! ResCur()
@@ -241,10 +203,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <leader>l :lwindow<CR>
-nnoremap <leader>q :cwindow<CR>
-
-
 " disable shift-k for man pages
 nnoremap K <Nop>
 
@@ -256,28 +214,15 @@ nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+nnoremap <leader>l :lwindow<CR>
+nnoremap <leader>q :cwindow<CR>
+
 nnoremap ]l :lwindow<cr>:lnext<cr>zx
 nnoremap [l :lwindow<cr>:lprevious<cr>zx
 nnoremap ]q :cwindow<cr>:cnext<cr>zx
 nnoremap [q :cwindow<cr>:cprevious<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
-
-" markdown headers
-nnoremap <leader>1 :t.<cr>Vr=o<cr>
-nnoremap <leader>2 :t.<cr>Vr-o<cr>
-
-"" javascript
-" console.log word under cursor
-autocmd FileType javascript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
-" console.log selected text
-autocmd FileType javascript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
-
-" python
-" print word under cursor
-autocmd FileType python nnoremap <leader>m yiwoprint "<esc>pa: %s" % <esc>pa<esc>
-" print selected text
-autocmd FileType python vnoremap <leader>m yoprint "<esc>pa: %s" % <esc>pa<esc>
 
 " mappa svenska Ö till kolon om man råkar köra svenskt tangentbord
 nnoremap Ö :
