@@ -35,22 +35,21 @@ let g:agprg = 'ag --column --smart-case'
 "{{{ Look and feel
 syntax on
 filetype indent plugin on
-set background=dark
 set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
 set background=dark
 highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
+highlight StatusLine ctermbg=2 ctermfg=0
+highlight StatusLineNC ctermbg=19 ctermfg=8
+highlight TabLineSel ctermbg=19
 
 " netrw tree listing
 let g:netrw_liststyle=3
 
 set modeline
 set modelines=3
-
-" enable statusbar for all windows
-set laststatus=2
 
 set wildmode=longest,list,full
 set wildmenu
@@ -103,7 +102,17 @@ endfunction
 " open preview window with tag under cursor
 nnoremap <silent> <leader>o <c-w>}
 "}}}
-"{{{ Airline
+"{{{ Statusline
+" LEFT:
+" relative filename, [help][modified][readonly] arguments (file 1 of 3)
+" RIGHT:
+" NOTHING
+set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
+" enable statusline for all windows
+set laststatus=2
+
+" disable airline
+let g:loaded_airline = 1
 let g:airline_section_z = '%3l,%2c'
 let g:airline_theme = 'base16'
 let g:airline_left_sep=''
@@ -121,7 +130,8 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tagbar#enabled = 0
 let g:airline#extensions#whitespace#enabled = 0
 
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+" Hide the default mode text (e.g. -- INSERT -- below the statusline)
+"set noshowmode
 "}}}
 "{{{ Syntastic
 "let g:syntastic_check_on_open=1
@@ -207,7 +217,7 @@ nnoremap <C-l> <C-w>l
 nnoremap K <Nop>
 
 " open ~/.vimrc with leader-v
-nnoremap <leader>v :tabe $MYVIMRC<CR>
+nnoremap <leader>v :tabnew<CR>:lcd ~/.vim<CR>:e $MYVIMRC<CR>
 
 " show syntax name/type under cursor
 nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
