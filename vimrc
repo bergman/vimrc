@@ -147,6 +147,8 @@ if has('persistent_undo')
 endif
 "}}}
 "{{{ Ctrl-P
+" use ag, should be faster
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 " dont manage working dir
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:100'
 let g:ctrlp_working_path_mode = 0
