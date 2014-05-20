@@ -2,8 +2,9 @@
 
 filetype off
 " Plug-ins {{{
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'derekwyatt/vim-scala'
@@ -15,13 +16,16 @@ Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'nvie/vim-flake8'
 Plugin 'rking/ag.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'shougo/unite.vim'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
+Plugin 'tsukkee/unite-tag'
 Plugin 'wavded/vim-stylus'
+call vundle#end()
 "}}}
 set nocompatible
 "{{{ Searching
@@ -46,7 +50,7 @@ highlight StatusLineNC ctermbg=19 ctermfg=8
 highlight TabLineSel ctermbg=19
 
 " netrw tree listing
-let g:netrw_liststyle=3
+"let g:netrw_liststyle=3
 
 set modeline
 set modelines=3
@@ -156,9 +160,32 @@ let g:ctrlp_custom_ignore = 'node_modules'
 let g:ctrlp_open_multiple_files = '4hjr'
 let g:ctrlp_map = ''
 let g:ctrlp_clear_cache_on_exit = 0
-nnoremap <silent> <leader>, :let g:ctrlp_default_input = ''<cr>:CtrlP<cr>
-nnoremap <silent> <leader>. :let g:ctrlp_default_input = '^'<cr>:CtrlPTag<cr>
-nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:CtrlPTag<cr>
+"nnoremap <silent> <leader>, :let g:ctrlp_default_input = ''<cr>:CtrlP<cr>
+"nnoremap <silent> <leader>. :let g:ctrlp_default_input = '^'<cr>:CtrlPTag<cr>
+"nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:CtrlPTag<cr>
+"}}}
+"{{{ Unite.vim
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+nnoremap <silent> <leader>\ :Unite register<CR>
+nnoremap <silent> <leader>, :Unite -start-insert file_rec<CR>
+nnoremap <silent> <leader>. :Unite -start-insert tag<cr>
+nnoremap <silent> <leader>/ :Unite -start-insert buffer<cr>
+nnoremap <silent> <leader>' :Unite -start-insert buffer file_rec tag<cr>
+nnoremap <silent> <leader>y :Unite history/yank<cr>
+nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
+
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <silent><buffer><expr> <C-x> unite#do_action('split')
+  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+endfunction
 "}}}
 "{{{ Utilities
 " sort words on a line
