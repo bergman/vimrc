@@ -10,4 +10,3 @@ syntax match coffeeFatArrow /=>/
 highlight coffeeConsole ctermfg=Magenta
 syntax match coffeeConsole /\<console\>/
 syntax match coffeeSpaceError /^\t\+/
-"}}}

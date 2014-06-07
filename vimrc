@@ -5,13 +5,13 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
-Plugin 'bling/vim-airline'
+Plugin 'benmills/vimux'
 Plugin 'chriskempson/base16-vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'kien/ctrlp.vim'
+Plugin 'milkypostman/vim-togglelist'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'nvie/vim-flake8'
 Plugin 'rking/ag.vim'
@@ -24,6 +24,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
+Plugin 'vimwiki/vimwiki'
 Plugin 'wavded/vim-stylus'
 call vundle#end()
 "}}}
@@ -45,12 +46,12 @@ colorscheme base16-tomorrow
 set background=dark
 highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
-highlight StatusLine ctermbg=2 ctermfg=0
+highlight StatusLine ctermbg=24 ctermfg=21
 highlight StatusLineNC ctermbg=19 ctermfg=8
 highlight TabLineSel ctermbg=19
 
-" netrw tree listing
-"let g:netrw_liststyle=3
+" make ctrl-6 work again
+let g:netrw_altfile=1
 
 set modeline
 set modelines=3
@@ -60,7 +61,7 @@ set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " hides buffers instead of closing when switching to a new one
-"set hidden
+set hidden
 
 " what to save in sessions, default except no options
 set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
@@ -110,32 +111,10 @@ nnoremap <silent> <leader>o <c-w>}
 " LEFT:
 " relative filename, [help][modified][readonly] arguments (file 1 of 3)
 " RIGHT:
-" NOTHING
+" row,col
 set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
 " enable statusline for all windows
 set laststatus=2
-
-" disable airline
-let g:loaded_airline = 1
-let g:airline_section_z = '%3l,%2c'
-let g:airline_theme = 'base16'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#branch#enabled = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_min_count = 2
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#tab_min_count = 0
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tagbar#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
-
-" Hide the default mode text (e.g. -- INSERT -- below the statusline)
-"set noshowmode
 "}}}
 "{{{ Syntastic
 "let g:syntastic_check_on_open=1
@@ -150,24 +129,10 @@ if has('persistent_undo')
   set undoreload=10000        " number of lines to save for undo
 endif
 "}}}
-"{{{ Ctrl-P
-" use ag, should be faster
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" dont manage working dir
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:100'
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_custom_ignore = 'node_modules'
-let g:ctrlp_open_multiple_files = '4hjr'
-let g:ctrlp_map = ''
-let g:ctrlp_clear_cache_on_exit = 0
-"nnoremap <silent> <leader>, :let g:ctrlp_default_input = ''<cr>:CtrlP<cr>
-"nnoremap <silent> <leader>. :let g:ctrlp_default_input = '^'<cr>:CtrlPTag<cr>
-"nnoremap <silent> <leader>t :let g:ctrlp_default_input = expand('<cword>')<cr>:CtrlPTag<cr>
-"}}}
 "{{{ Unite.vim
 let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#sorter_default#use(['sorter_rank'])
 nnoremap <silent> <leader>\ :Unite register<CR>
 nnoremap <silent> <leader>, :Unite -start-insert file_rec<CR>
 nnoremap <silent> <leader>. :Unite -start-insert tag<cr>
@@ -188,8 +153,36 @@ function! s:unite_settings()
 endfunction
 "}}}
 "{{{ Utilities
-" sort words on a line
+" open ~/.vim with leader-v
+nnoremap <leader>v :tabedit ~/.vim<CR>
+
+" sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
+"}}}
+"{{{ Vimwiki
+let g:vimwiki_list = [
+      \ {'path': '~/vimwiki/',
+        \ 'syntax': 'markdown',
+        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
+        \,
+      \ {'path': '~/edgeware/vimwiki/',
+        \ 'syntax': 'markdown',
+        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
+      \ ]
+let g:vimwiki_diary_months = {
+      \ 1: 'januari',
+      \ 2: 'februari',
+      \ 3: 'mars',
+      \ 4: 'april',
+      \ 5: 'maj',
+      \ 6: 'juni',
+      \ 7: 'juli',
+      \ 8: 'augusti',
+      \ 9: 'september',
+      \ 10: 'oktober',
+      \ 11: 'november',
+      \ 12: 'december'
+      \ }
 "}}}
 
 " Tell vim to remember certain things when we exit
@@ -245,16 +238,10 @@ nnoremap <C-l> <C-w>l
 " disable shift-k for man pages
 nnoremap K <Nop>
 
-" open ~/.vimrc with leader-v
-nnoremap <leader>v :tabnew<CR>:lcd ~/.vim<CR>:e $MYVIMRC<CR>
-
 " show syntax name/type under cursor
 nnoremap <leader>c :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-nnoremap <leader>l :lwindow<CR>
-nnoremap <leader>q :cwindow<CR>
 
 nnoremap ]l :lwindow<cr>:lnext<cr>zx
 nnoremap [l :lwindow<cr>:lprevious<cr>zx

@@ -1,1 +1,1 @@
-setlocal nowritebackup
+setlocal nowritebackup nobackup
