@@ -47,7 +47,8 @@ set background=dark
 highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
 highlight StatusLine ctermbg=24 ctermfg=21
-highlight StatusLineNC ctermbg=19 ctermfg=8
+highlight StatusLineNC ctermbg=240 ctermfg=8
+highlight VertSplit ctermbg=240
 highlight TabLineSel ctermbg=19
 
 " make ctrl-6 work again
