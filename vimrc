@@ -8,13 +8,12 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'benmills/vimux'
 Plugin 'chriskempson/base16-vim'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'ervandew/ag'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'milkypostman/vim-togglelist'
-Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'nvie/vim-flake8'
-Plugin 'rking/ag.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'shougo/unite.vim'
 Plugin 'sprsquish/thrift.vim'
@@ -30,12 +29,21 @@ call vundle#end()
 "}}}
 set nocompatible
 "{{{ Searching
-set ignorecase " ignore case in searches
-set smartcase " ignore case unless at least one upper case char
 set hlsearch " highlight matches in a search (hls)
 set incsearch " show the current matching pattern as you search (is)
 nnoremap <silent> <leader><space> :nohlsearch<cr>
-let g:agprg = 'ag --column --smart-case'
+
+" Visual star search
+" http://got-ravings.blogspot.se/2008/07/vim-pr0n-visual-search-mappings.html
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 "}}}
 "{{{ Look and feel
 syntax on
@@ -155,7 +163,7 @@ endfunction
 "}}}
 "{{{ Utilities
 " open ~/.vim with leader-v
-nnoremap <leader>v :tabedit ~/.vim<CR>
+nnoremap <leader>v :tabedit ~/.vim<CR>G
 
 " sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
