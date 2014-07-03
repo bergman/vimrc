@@ -6,9 +6,9 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'benmills/vimux'
+Plugin 'bergman/ag'
 Plugin 'chriskempson/base16-vim'
 Plugin 'derekwyatt/vim-scala'
-Plugin 'ervandew/ag'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kchmck/vim-coffee-script'
