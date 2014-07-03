@@ -24,6 +24,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
+Plugin 'vim-scripts/jade.vim'
 Plugin 'vimwiki/vimwiki'
 Plugin 'wavded/vim-stylus'
 call vundle#end()
