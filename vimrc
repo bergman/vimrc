@@ -16,6 +16,7 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
+Plugin 'shougo/neocomplete.vim'
 Plugin 'shougo/unite.vim'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
@@ -195,6 +196,8 @@ let g:vimwiki_diary_months = {
       \ 12: 'december'
       \ }
 "}}}
+
+let g:neocomplete#enable_at_startup = 1
 
 " Tell vim to remember certain things when we exit
 "  '10  :  marks will be remembered for up to 10 previously edited files
