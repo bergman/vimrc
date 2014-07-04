@@ -17,7 +17,9 @@ Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
 Plugin 'shougo/neocomplete.vim'
+Plugin 'shougo/neomru.vim'
 Plugin 'shougo/unite.vim'
+Plugin 'shougo/vimproc.vim'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
@@ -142,26 +144,41 @@ if has('persistent_undo')
 endif
 "}}}
 "{{{ Unite.vim
-let g:unite_source_history_yank_enable = 1
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#sorter_default#use(['sorter_rank'])
-nnoremap <silent> <leader>\ :Unite register<CR>
-nnoremap <silent> <leader>, :Unite -start-insert file_rec<CR>
-nnoremap <silent> <leader>. :Unite -start-insert tag<cr>
-nnoremap <silent> <leader>/ :Unite -start-insert buffer<cr>
-nnoremap <silent> <leader>' :Unite -start-insert buffer file_rec tag<cr>
+" http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_source_history_yank_enable=1
+let g:unite_split_rule = 'botright'
+if executable('ag')
+  let g:unite_source_grep_command='ag'
+  let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
+  let g:unite_source_grep_recursive_opt=''
+endif
+
+let g:neomru#file_mru_limit = 10
+let g:neomru#file_mru_ignore_pattern = 'COMMIT_EDITMSG'
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+command! -nargs=* -complete=file Grep execute 'Unite grep:.::<q-args>'
+
+nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
+nnoremap <silent> <leader>, :Unite -no-split -start-insert file_rec/async:!<cr>
+nnoremap <silent> <leader>. :Unite -no-split -start-insert tag<cr>
+nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async:! tag<cr>
 nnoremap <silent> <leader>y :Unite history/yank<cr>
 nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
+nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
+
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  imap <silent><buffer><expr> <C-x> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> <C-x> unite#do_action('below')
+  imap <silent><buffer><expr> <C-v> unite#do_action('right')
   imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
 
-  nmap <buffer> <ESC> <Plug>(unite_exit)
+  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
 endfunction
 "}}}
 "{{{ Utilities
