@@ -28,6 +28,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
+Plugin 'vim-scripts/gitignore'
 Plugin 'vim-scripts/jade.vim'
 Plugin 'vimwiki/vimwiki'
 Plugin 'wavded/vim-stylus'
@@ -37,7 +38,7 @@ set nocompatible
 "{{{ Searching
 set hlsearch " highlight matches in a search (hls)
 set incsearch " show the current matching pattern as you search (is)
-nnoremap <silent> <leader><space> :nohlsearch<cr>
+nnoremap <silent> <leader><space> :nohlsearch<cr>:syntax sync fromstart<cr>
 
 " Visual star search
 " http://got-ravings.blogspot.se/2008/07/vim-pr0n-visual-search-mappings.html
@@ -66,8 +67,11 @@ highlight MatchParen ctermbg=19
 highlight SpecialKey ctermfg=19
 highlight StatusLine ctermbg=24 ctermfg=21
 highlight StatusLineNC ctermbg=240 ctermfg=8
-highlight VertSplit ctermbg=240
+highlight VertSplit ctermbg=236
 highlight TabLineSel ctermbg=19
+
+" delete netrw buffers
+autocmd FileType netrw setl bufhidden=delete
 
 " make ctrl-6 work again
 let g:netrw_altfile=1
@@ -78,9 +82,10 @@ set modelines=3
 set wildmode=longest,list,full
 set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
+autocmd VimEnter * WildignoreFromGitignore
 
 " hides buffers instead of closing when switching to a new one
-set hidden
+"set hidden
 
 " what to save in sessions, default except no options
 set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
@@ -114,13 +119,12 @@ endif
 noremap Y y$
 
 " Set a nicer foldtext function
-set foldtext=MyFoldText()
-function! MyFoldText()
+set foldtext=NumLinesEndOfLine()
+function! NumLinesEndOfLine()
   let maxwidth = 80
-  let endtext = (v:foldend - v:foldstart + 1) . ' lines'
-  let linetext = strpart(getline(v:foldstart), 0, -3 + maxwidth - len(endtext))
-  let textlength = len(linetext)
-  return linetext . repeat(' ', 80 - textlength - len(endtext)) . endtext
+  let lines = (v:foldend - v:foldstart + 1)
+  let linetext = strpart(getline(v:foldstart), 0, -3 + maxwidth - len(lines))
+  return linetext . repeat(' ', maxwidth - len(linetext) - len(lines)) . lines
 endfunction
 
 " open preview window with tag under cursor
@@ -157,6 +161,7 @@ if executable('ag')
   let g:unite_source_grep_command='ag'
   let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
   let g:unite_source_grep_recursive_opt=''
+  let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
 endif
 
 let g:neomru#file_mru_limit = 10
@@ -164,12 +169,12 @@ let g:neomru#file_mru_ignore_pattern = 'COMMIT_EDITMSG'
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-command! -nargs=* -complete=file Grep execute 'Unite grep:.::<q-args>'
+"command! -nargs=* -complete=file Grep execute 'Unite grep:.::<q-args>'
 
 nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
-nnoremap <silent> <leader>, :Unite -no-split -start-insert file_rec/async:!<cr>
+nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert -buffer-name=files file_rec/async<cr>
 nnoremap <silent> <leader>. :Unite -no-split -start-insert tag<cr>
-nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async:! tag<cr>
+nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async tag<cr>
 nnoremap <silent> <leader>y :Unite history/yank<cr>
 nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
 nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
@@ -221,7 +226,16 @@ let g:vimwiki_diary_months = {
 "{{{ NeoComplete
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#disable_auto_complete=1
-autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
+if exists("NeoCompleteDisable")
+  autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
+endif
+"}}}
+"{{{ Vimux
+" q: quit scroll mode, C-u: clear command line, C-c: interrupt whatever is
+" running
+let g:VimuxResetSequence="q C-u C-c"
+nnoremap <leader>z :VimuxPromptCommand<cr>
+nnoremap <leader>x :VimuxRunLastCommand<cr>
 "}}}
 
 " Tell vim to remember certain things when we exit

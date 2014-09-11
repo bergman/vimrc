@@ -10,3 +10,8 @@ syntax match coffeeFatArrow /=>/
 highlight coffeeConsole ctermfg=Magenta
 syntax match coffeeConsole /\<console\>/
 syntax match coffeeSpaceError /^\t\+/
+
+" console.log word under cursor
+nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
+" console.log selected text
+vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
