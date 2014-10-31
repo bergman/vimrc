@@ -1,7 +1,7 @@
-" vim: filetype=vim foldmethod=marker et
-
+if !has("compatible")
+set nocompatible
+"{{{ Plug-ins
 filetype off
-" Plug-ins {{{
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
@@ -16,8 +16,9 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
-Plugin 'shougo/neocomplete.vim'
-Plugin 'shougo/neomru.vim'
+if has('lua')
+  Plugin 'shougo/neocomplete.vim'
+endif
 Plugin 'shougo/unite-outline'
 Plugin 'shougo/unite.vim'
 Plugin 'shougo/vimproc.vim'
@@ -34,7 +35,6 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'wavded/vim-stylus'
 call vundle#end()
 "}}}
-set nocompatible
 "{{{ Searching
 set hlsearch " highlight matches in a search (hls)
 set incsearch " show the current matching pattern as you search (is)
@@ -63,18 +63,22 @@ set t_Co=256
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-tomorrow
 set background=dark
-highlight MatchParen ctermbg=19
+highlight MatchParen ctermbg=NONE ctermfg=201
 highlight SpecialKey ctermfg=19
-highlight StatusLine ctermbg=24 ctermfg=21
-highlight StatusLineNC ctermbg=240 ctermfg=8
+highlight StatusLine ctermbg=202 ctermfg=0
+highlight StatusLineNC ctermbg=240 ctermfg=250
 highlight VertSplit ctermbg=236
 highlight TabLineSel ctermbg=19
+highlight Search ctermbg=202 ctermfg=0
 
 " delete netrw buffers
 autocmd FileType netrw setl bufhidden=delete
 
 " make ctrl-6 work again
 let g:netrw_altfile=1
+
+let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
+set timeoutlen=1000 ttimeoutlen=10
 
 set modeline
 set modelines=3
@@ -98,7 +102,9 @@ set tabstop=2
 set shiftwidth=2
 
 " disable swap and backup files
-set nobackup noswapfile
+"set nobackup noswapfile
+set backupdir=~/.vim/backup
+set directory=~/.vim/swap
 
 set number " show line numbers
 
@@ -127,117 +133,6 @@ function! NumLinesEndOfLine()
   return linetext . repeat(' ', maxwidth - len(linetext) - len(lines)) . lines
 endfunction
 
-" open preview window with tag under cursor
-nnoremap <silent> <leader>o <c-w>}
-"}}}
-"{{{ Statusline
-" LEFT:
-" relative filename, [help][modified][readonly] arguments (file 1 of 3)
-" RIGHT:
-" row,col
-set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
-" enable statusline for all windows
-set laststatus=2
-"}}}
-"{{{ Syntastic
-"let g:syntastic_check_on_open=1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_python_checkers = ['frosted', 'flake8']
-"}}}
-"{{{ Undo
-if has('persistent_undo')
-  set undofile                " Save undo's after file closes
-  set undodir=~/.vim/undo " where to save undo histories
-  set undolevels=1000         " How many undos
-  set undoreload=10000        " number of lines to save for undo
-endif
-"}}}
-"{{{ Unite.vim
-" http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
-let g:unite_data_directory='~/.vim/.cache/unite'
-let g:unite_source_history_yank_enable=1
-let g:unite_split_rule = 'botright'
-if executable('ag')
-  let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
-  let g:unite_source_grep_recursive_opt=''
-  let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
-endif
-
-let g:neomru#file_mru_limit = 10
-let g:neomru#file_mru_ignore_pattern = 'COMMIT_EDITMSG'
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-"command! -nargs=* -complete=file Grep execute 'Unite grep:.::<q-args>'
-
-nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
-nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert -buffer-name=files file_rec/async<cr>
-nnoremap <silent> <leader>. :Unite -no-split -start-insert tag<cr>
-nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async tag<cr>
-nnoremap <silent> <leader>y :Unite history/yank<cr>
-nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
-nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
-
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  imap <silent><buffer><expr> <C-x> unite#do_action('below')
-  imap <silent><buffer><expr> <C-v> unite#do_action('right')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-
-  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-endfunction
-"}}}
-"{{{ Utilities
-" open ~/.vim with leader-v
-nnoremap <leader>v :tabedit ~/.vim<CR>G
-
-" sort comma-space separated words on a line
-nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
-"}}}
-"{{{ Vimwiki
-let g:vimwiki_list = [
-      \ {'path': '~/vimwiki/',
-        \ 'syntax': 'markdown',
-        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
-        \,
-      \ {'path': '~/edgeware/vimwiki/',
-        \ 'syntax': 'markdown',
-        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
-      \ ]
-let g:vimwiki_diary_months = {
-      \ 1: 'januari',
-      \ 2: 'februari',
-      \ 3: 'mars',
-      \ 4: 'april',
-      \ 5: 'maj',
-      \ 6: 'juni',
-      \ 7: 'juli',
-      \ 8: 'augusti',
-      \ 9: 'september',
-      \ 10: 'oktober',
-      \ 11: 'november',
-      \ 12: 'december'
-      \ }
-"}}}
-"{{{ NeoComplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#disable_auto_complete=1
-if exists("NeoCompleteDisable")
-  autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
-endif
-"}}}
-"{{{ Vimux
-" q: quit scroll mode, C-u: clear command line, C-c: interrupt whatever is
-" running
-let g:VimuxResetSequence="q C-u C-c"
-nnoremap <leader>z :VimuxPromptCommand<cr>
-nnoremap <leader>x :VimuxRunLastCommand<cr>
-"}}}
-
 " Tell vim to remember certain things when we exit
 "  '100  :  marks will be remembered for up to 100 previously edited files
 "  "100  :  will save up to 100 lines for each register
@@ -249,14 +144,13 @@ set viminfo='100,\"100,:1000,%,n~/.viminfo
 " command history
 set history=1000
 
-setlocal formatoptions-=o
-set formatoptions-=o
-
 " auto-reload files changed on disk.
 set autoread
 
 " fold comments as well as code (default: #)
 set foldignore=
+
+set tags=.tags
 
 " restore last position
 function! ResCur()
@@ -294,6 +188,8 @@ nnoremap ]q :cwindow<cr>:cnext<cr>zx
 nnoremap [q :cwindow<cr>:cprevious<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
+nnoremap ]u :UniteNext<cr>
+nnoremap [u :UnitePrevious<cr>
 
 " mappa svenska Ö till kolon om man råkar köra svenskt tangentbord
 nnoremap Ö :
@@ -304,7 +200,121 @@ nnoremap <leader>p :set paste!<CR>
 nnoremap <leader>h o<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 nnoremap <leader>H O<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 
-set timeoutlen=1000 ttimeoutlen=10
+" open preview window with tag under cursor
+nnoremap <silent> <leader>o <c-w>}
 
-set tags=.tags
-let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
+" open ~/.vim with leader-v
+nnoremap <leader>v :tabedit ~/.vim<CR>G
+
+" sort comma-space separated words on a line
+nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
+"}}}
+"{{{ Statusline
+" LEFT:
+" relative filename, [help][modified][readonly] arguments (file 1 of 3)
+" RIGHT:
+" row,col
+set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
+" enable statusline for all windows
+set laststatus=2
+"}}}
+"{{{ Syntastic
+"let g:syntastic_check_on_open=1
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_python_checkers = ['frosted', 'flake8']
+"}}}
+"{{{ Undo
+if has('persistent_undo')
+  set undofile                " Save undo's after file closes
+  set undodir=~/.vim/undo " where to save undo histories
+  set undolevels=1000         " How many undos
+  set undoreload=10000        " number of lines to save for undo
+endif
+"}}}
+"{{{ Unite.vim
+" http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_source_history_yank_enable=1
+let g:unite_split_rule = 'botright'
+if executable('ag')
+  let g:unite_source_grep_command='ag'
+  let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
+  let g:unite_source_grep_recursive_opt=''
+  let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
+endif
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
+nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/async<cr>
+nnoremap <silent> <leader>. :Unite -no-split -start-insert -ignorecase tag<cr>
+nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async tag<cr>
+nnoremap <silent> <leader>y :Unite history/yank<cr>
+nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
+nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
+
+
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <silent><buffer><expr> <C-x> unite#do_action('below')
+  imap <silent><buffer><expr> <C-v> unite#do_action('right')
+  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
+
+  nmap <buffer> <F5> <Plug>(unite_redraw)
+  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
+endfunction
+"}}}
+"{{{ Vimwiki
+let g:vimwiki_list = [
+      \ {'path': '~/vimwiki/',
+        \ 'syntax': 'markdown',
+        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
+        \,
+      \ {'path': '~/edgeware/vimwiki/',
+        \ 'syntax': 'markdown',
+        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
+      \ ]
+let g:vimwiki_diary_months = {
+      \ 1: 'januari',
+      \ 2: 'februari',
+      \ 3: 'mars',
+      \ 4: 'april',
+      \ 5: 'maj',
+      \ 6: 'juni',
+      \ 7: 'juli',
+      \ 8: 'augusti',
+      \ 9: 'september',
+      \ 10: 'oktober',
+      \ 11: 'november',
+      \ 12: 'december'
+      \ }
+autocmd BufEnter *.wiki set nonu
+"}}}
+"{{{ NeoComplete
+if has('lua')
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#disable_auto_complete=1
+  if exists("NeoCompleteDisable")
+    autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
+  endif
+endif
+"}}}
+"{{{ Vimux
+let g:VimuxHeight = "10"
+" q: quit scroll mode, C-u: clear command line, C-c: interrupt whatever is
+" running
+let g:VimuxResetSequence="q C-u C-c"
+nnoremap <leader>z :VimuxPromptCommand<cr>
+nnoremap <leader>x :VimuxRunLastCommand<cr>
+"}}}
+"{{{ Machine local settings in ~/.vimrc.local
+if filereadable(glob("~/.vimrc.local")) 
+  source ~/.vimrc.local
+endif
+"}}}
+endif
+" vim: ft=vim fdm=marker et
