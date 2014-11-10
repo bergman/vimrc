@@ -1,5 +1,3 @@
-if !has("compatible")
-set nocompatible
 "{{{ Plug-ins
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
@@ -17,7 +15,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
 if has('lua')
-  Plugin 'shougo/neocomplete.vim'
+  "Plugin 'shougo/neocomplete.vim'
 endif
 Plugin 'shougo/unite-outline'
 Plugin 'shougo/unite.vim'
@@ -29,7 +27,6 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
-Plugin 'vim-scripts/gitignore'
 Plugin 'vim-scripts/jade.vim'
 Plugin 'vimwiki/vimwiki'
 Plugin 'wavded/vim-stylus'
@@ -83,10 +80,10 @@ set timeoutlen=1000 ttimeoutlen=10
 set modeline
 set modelines=3
 
-set wildmode=longest,list,full
+"set wildmode=longest,list,full
+set wildmode=longest,list:longest
 set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
-autocmd VimEnter * WildignoreFromGitignore
 
 " hides buffers instead of closing when switching to a new one
 "set hidden
@@ -235,7 +232,6 @@ endif
 " http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
 let g:unite_data_directory='~/.vim/.cache/unite'
 let g:unite_source_history_yank_enable=1
-let g:unite_split_rule = 'botright'
 if executable('ag')
   let g:unite_source_grep_command='ag'
   let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
@@ -244,7 +240,7 @@ if executable('ag')
 endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+"call unite#filters#sorter_default#use(['sorter_rank'])
 
 nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
 nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/async<cr>
@@ -296,11 +292,11 @@ autocmd BufEnter *.wiki set nonu
 "}}}
 "{{{ NeoComplete
 if has('lua')
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#disable_auto_complete=1
-  if exists("NeoCompleteDisable")
-    autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
-  endif
+  "let g:neocomplete#disable_auto_complete=1
+  "let g:neocomplete#enable_at_startup = 1
+  "if exists("NeoCompleteDisable")
+  "  autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
+  "endif
 endif
 "}}}
 "{{{ Vimux
@@ -316,5 +312,4 @@ if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 "}}}
-endif
 " vim: ft=vim fdm=marker et
