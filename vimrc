@@ -14,9 +14,6 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
-if has('lua')
-  "Plugin 'shougo/neocomplete.vim'
-endif
 Plugin 'shougo/unite-outline'
 Plugin 'shougo/unite.vim'
 Plugin 'shougo/vimproc.vim'
@@ -289,15 +286,6 @@ let g:vimwiki_diary_months = {
       \ 12: 'december'
       \ }
 autocmd BufEnter *.wiki set nonu
-"}}}
-"{{{ NeoComplete
-if has('lua')
-  "let g:neocomplete#disable_auto_complete=1
-  "let g:neocomplete#enable_at_startup = 1
-  "if exists("NeoCompleteDisable")
-  "  autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,TAG_EDIT,MERGE_,}MSG NeoCompleteDisable
-  "endif
-endif
 "}}}
 "{{{ Vimux
 let g:VimuxHeight = "10"
