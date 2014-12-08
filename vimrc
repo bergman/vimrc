@@ -101,8 +101,8 @@ set shiftwidth=2
 
 " disable swap and backup files
 "set nobackup noswapfile
-set backupdir=~/.vim/backup
-set directory=~/.vim/swap
+set backupdir=~/.vim/.backup
+set directory=~/.vim/.swap
 
 set number " show line numbers
 
@@ -224,14 +224,14 @@ let g:syntastic_python_checkers = ['frosted', 'flake8']
 "{{{ Undo
 if has('persistent_undo')
   set undofile                " Save undo's after file closes
-  set undodir=~/.vim/undo " where to save undo histories
+  set undodir=~/.vim/.undo    " where to save undo histories
   set undolevels=1000         " How many undos
   set undoreload=10000        " number of lines to save for undo
 endif
 "}}}
 "{{{ Unite.vim
 " http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
-let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_data_directory='~/.vim/.unite'
 let g:unite_source_history_yank_enable=1
 if executable('ag')
   let g:unite_source_grep_command='ag'

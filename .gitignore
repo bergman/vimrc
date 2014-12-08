@@ -1,4 +1,7 @@
-bundle/*
-.netrwhist
-undo
+bundle
+.backup
 .cache
+.netrwhist
+.swap
+.undo
+.unite
