@@ -212,7 +212,8 @@ nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'
 " relative filename, [help][modified][readonly] arguments (file 1 of 3)
 " RIGHT:
 " row,col
-set statusline=%<%f\ %h%m%r\ %a%=%l,%c%V
+" set statusline=%<%f\ %h%m%r\ %a%=%l,%c,%P
+set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
 " enable statusline for all windows
 set laststatus=2
 "}}}
