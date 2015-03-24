@@ -4,19 +4,20 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'benmills/vimux'
-Plugin 'chriskempson/base16-vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'ervandew/ag'
 Plugin 'godlygeek/tabular'
 Plugin 'hynek/vim-python-pep8-indent'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'milkypostman/vim-togglelist'
+Plugin 'morhetz/gruvbox'
 Plugin 'nvie/vim-flake8'
 Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
 Plugin 'shougo/unite-outline'
 Plugin 'shougo/unite.vim'
 Plugin 'shougo/vimproc.vim'
+Plugin 'sickill/vim-monokai'
 Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
@@ -53,17 +54,8 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 "{{{ Look and feel
 syntax on
 filetype indent plugin on
-set t_Co=256
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-tomorrow
+colorscheme gruvbox
 set background=dark
-highlight MatchParen ctermbg=NONE ctermfg=201
-highlight SpecialKey ctermfg=19
-highlight StatusLine ctermbg=202 ctermfg=0
-highlight StatusLineNC ctermbg=240 ctermfg=250
-highlight VertSplit ctermbg=236
-highlight TabLineSel ctermbg=19
-highlight Search ctermbg=202 ctermfg=0
 
 " delete netrw buffers
 autocmd FileType netrw setl bufhidden=delete
