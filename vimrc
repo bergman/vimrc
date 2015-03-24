@@ -54,8 +54,10 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 "{{{ Look and feel
 syntax on
 filetype indent plugin on
+set background=dark
 colorscheme gruvbox
 set background=dark
+highlight Normal ctermbg=NONE
 
 " delete netrw buffers
 autocmd FileType netrw setl bufhidden=delete
