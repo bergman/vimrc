@@ -3,31 +3,38 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
+
+" colorschemes
+Plugin 'morhetz/gruvbox'
+Plugin 'sickill/vim-monokai'
+
+" functionality
 Plugin 'benmills/vimux'
-Plugin 'derekwyatt/vim-scala'
 Plugin 'ervandew/ag'
 Plugin 'godlygeek/tabular'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'milkypostman/vim-togglelist'
-Plugin 'morhetz/gruvbox'
-Plugin 'nvie/vim-flake8'
-Plugin 'pangloss/vim-javascript'
 Plugin 'scrooloose/syntastic'
 Plugin 'shougo/unite-outline'
 Plugin 'shougo/unite.vim'
 Plugin 'shougo/vimproc.vim'
-Plugin 'sickill/vim-monokai'
-Plugin 'sprsquish/thrift.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
-Plugin 'vim-scripts/jade.vim'
 Plugin 'vimwiki/vimwiki'
+
+" filetype
+Plugin 'derekwyatt/vim-scala'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'nvie/vim-flake8'
+Plugin 'pangloss/vim-javascript'
+Plugin 'vim-scripts/jade.vim'
 Plugin 'wavded/vim-stylus'
+Plugin 'wlue/thrift.vim'
+
 call vundle#end()
 "}}}
 "{{{ Searching
@@ -99,8 +106,8 @@ set number " show line numbers
 set listchars=trail:-,tab:>-
 set list
 set fillchars="vert:|,fold:"
-set splitbelow
-set splitright
+"set splitbelow
+"set splitright
 set nowrap
 set backspace=indent,eol,start " allow backspacing over these
 set formatoptions-=o " don't continue comments on o/O
@@ -110,7 +117,7 @@ if v:version ># 703 || v:version ==# 703 && has('patch541')
 endif
 
 " Make Y behave like C, D etc instead of like S
-noremap Y y$
+"noremap Y y$
 
 " Set a nicer foldtext function
 set foldtext=NumLinesEndOfLine()
@@ -240,6 +247,7 @@ nnoremap <silent> <leader>. :Unite -no-split -start-insert -ignorecase tag<cr>
 nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async tag<cr>
 nnoremap <silent> <leader>y :Unite history/yank<cr>
 nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
+nnoremap <silent> <leader>o :Unite -no-split outline<cr>
 nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
 
 
