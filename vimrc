@@ -170,6 +170,16 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
+" move lines up/down with arrow keys
+nnoremap <UP> ddkP
+vnoremap <UP> dkP`[V`]
+nnoremap <DOWN> ddp
+vnoremap <DOWN> djP`[V`]
+nnoremap <LEFT> <<
+vnoremap <LEFT> <gv
+nnoremap <RIGHT> >>
+vnoremap <RIGHT> >gv
+
 " disable shift-k for man pages
 nnoremap K <Nop>
 
