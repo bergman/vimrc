@@ -10,6 +10,7 @@ Plugin 'sickill/vim-monokai'
 
 " functionality
 Plugin 'benmills/vimux'
+Plugin '0x0dea/vim-molasses'
 Plugin 'ervandew/ag'
 Plugin 'godlygeek/tabular'
 Plugin 'milkypostman/vim-togglelist'
