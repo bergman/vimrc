@@ -49,13 +49,12 @@ function! s:VSetSearch()
   let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
   let @@ = temp
 endfunction
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
-
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 "}}}
 "{{{ Look and feel
 syntax on
@@ -168,16 +167,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-" move lines up/down with arrow keys
-nnoremap <UP> ddkP
-vnoremap <UP> dkP`[V`]
-nnoremap <DOWN> ddp
-vnoremap <DOWN> djP`[V`]
-nnoremap <LEFT> <<
-vnoremap <LEFT> <gv
-nnoremap <RIGHT> >>
-vnoremap <RIGHT> >gv
-
 " disable shift-k for man pages
 nnoremap K <Nop>
 
@@ -190,6 +179,8 @@ nnoremap ]l :lwindow<cr>:lnext<cr>zx
 nnoremap [l :lwindow<cr>:lprevious<cr>zx
 nnoremap ]q :cwindow<cr>:cnext<cr>zx
 nnoremap [q :cwindow<cr>:cprevious<cr>zx
+nnoremap ]w :cwindow<cr>:cnfile<cr>zx
+nnoremap [w :cwindow<cr>:cpfile<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
 nnoremap ]u :UniteNext<cr>
@@ -249,6 +240,7 @@ endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 "call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/async,file_rec/git', 'sorters', ['sorter_length'])
 
 nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
 nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/async<cr>
