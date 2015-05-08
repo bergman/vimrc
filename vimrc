@@ -64,6 +64,12 @@ colorscheme gruvbox
 set background=dark
 highlight Normal ctermbg=NONE
 
+" disable all bells (this is a bit backwards but it works)
+" see: http://unix.stackexchange.com/a/5313
+" see: :h visualbell
+set visualbell
+set t_vb=
+
 " delete netrw buffers
 autocmd FileType netrw setl bufhidden=delete
 
