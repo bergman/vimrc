@@ -21,7 +21,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-vinegar'
 Plugin 'tsukkee/unite-tag'
 Plugin 'vimwiki/vimwiki'
 
@@ -172,6 +171,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" dash - for :Ex
+nnoremap - :Explore<cr>
 
 " disable shift-k for man pages
 nnoremap K <Nop>
