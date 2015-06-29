@@ -205,6 +205,9 @@ nnoremap <leader>v :tabedit ~/.vim<CR>G
 
 " sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
+
+" format xml with :Xml
+command Xml %!xmllint --format --recover -
 "}}}
 "{{{ Statusline
 " LEFT:
