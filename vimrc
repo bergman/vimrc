@@ -86,6 +86,10 @@ set wildmode=longest,list:longest
 set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
+" show git diff when committing
+autocmd FileType gitcommit DiffGitCached | wincmd L | wincmd p
+autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
 " hides buffers instead of closing when switching to a new one
 "set hidden
 
@@ -103,6 +107,8 @@ set shiftwidth=2
 "set nobackup noswapfile
 set backupdir=~/.vim/.backup
 set directory=~/.vim/.swap
+" disable backup for crontab
+autocmd FileType crontab setlocal nowritebackup nobackup
 
 set number " show line numbers
 
@@ -277,6 +283,66 @@ let g:VimuxHeight = "10"
 let g:VimuxResetSequence="q C-u C-c"
 nnoremap <leader>z :VimuxPromptCommand<cr>
 nnoremap <leader>x :VimuxRunLastCommand<cr>
+"}}}
+"{{{ Javascript
+autocmd FileType javascript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
+" console.log word under cursor
+autocmd FileType javascript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
+" console.log selected text
+autocmd FileType javascript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
+"}}}
+"{{{ Coffeescript
+autocmd FileType coffeescript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
+
+" coffeescript custom stuff, mark thin and fat arrows differently
+autocmd FileType coffeescript highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
+autocmd FileType coffeescript syntax match coffeeThinArrow /->/
+autocmd FileType coffeescript highlight coffeeFatArrow ctermbg=Brown ctermfg=Black
+autocmd FileType coffeescript syntax match coffeeFatArrow /=>/
+autocmd FileType coffeescript highlight coffeeConsole ctermfg=Magenta
+autocmd FileType coffeescript syntax match coffeeConsole /\<console\>/
+autocmd FileType coffeescript syntax match coffeeSpaceError /^\t\+/
+
+" console.log word under cursor
+autocmd FileType coffeescript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
+" console.log selected text
+autocmd FileType coffeescript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
+"}}}
+"{{{ Markdown
+autocmd filetype markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
+
+" headers
+autocmd filetype markdown nnoremap <leader>1 :t.<cr>Vr=o<cr>
+autocmd filetype markdown nnoremap <leader>2 :t.<cr>Vr-o<cr>
+"}}}
+"{{{ Python
+" make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
+autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
+
+"folding
+autocmd FileType python setlocal foldmethod=indent foldlevelstart=0
+
+" print word under cursor
+autocmd FileType python nnoremap <leader>m yiwoprint "<esc>pa: %s" % <esc>pa<esc>
+" print selected text
+autocmd FileType python vnoremap <leader>m yoprint "<esc>pa: %s" % <esc>pa<esc>
+
+let s:has_opened_ipython = 0
+function! VimuxSlime(code)
+  if !s:has_opened_ipython
+    call VimuxRunCommand("ipython")
+    let s:has_opened_ipython = 1
+  endif
+
+  call VimuxSendText("%cpaste")
+  call VimuxSendKeys("Enter")
+  call VimuxSendText(a:code)
+  call VimuxSendKeys("Enter")
+  call VimuxSendKeys("C-d")
+endfunction
+
+" If text is selected, save it in the v buffer and send that buffer to tmux
+autocmd FileType python vnoremap <leader>r y :call VimuxSlime(@")<CR>
 "}}}
 "{{{ Machine local settings in ~/.vimrc.local
 if filereadable(glob("~/.vimrc.local")) 
