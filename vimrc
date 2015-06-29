@@ -23,7 +23,6 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tsukkee/unite-tag'
-Plugin 'vimwiki/vimwiki'
 
 " filetype
 Plugin 'derekwyatt/vim-scala'
@@ -273,32 +272,6 @@ function! s:unite_settings()
   nmap <buffer> <F5> <Plug>(unite_redraw)
   nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
 endfunction
-"}}}
-"{{{ Vimwiki
-let g:vimwiki_list = [
-      \ {'path': '~/vimwiki/',
-        \ 'syntax': 'markdown',
-        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
-        \,
-      \ {'path': '~/edgeware/vimwiki/',
-        \ 'syntax': 'markdown',
-        \ 'nested_syntaxes': {'python': 'python', 'sh': 'sh'}}
-      \ ]
-let g:vimwiki_diary_months = {
-      \ 1: 'januari',
-      \ 2: 'februari',
-      \ 3: 'mars',
-      \ 4: 'april',
-      \ 5: 'maj',
-      \ 6: 'juni',
-      \ 7: 'juli',
-      \ 8: 'augusti',
-      \ 9: 'september',
-      \ 10: 'oktober',
-      \ 11: 'november',
-      \ 12: 'december'
-      \ }
-autocmd BufEnter *.wiki set nonu
 "}}}
 "{{{ Vimux
 let g:VimuxHeight = "10"
