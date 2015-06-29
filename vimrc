@@ -119,9 +119,6 @@ if v:version ># 703 || v:version ==# 703 && has('patch541')
   set formatoptions+=j " remove extra comment markers when joining lines
 endif
 
-" Make Y behave like C, D etc instead of like S
-"noremap Y y$
-
 " Set a nicer foldtext function
 set foldtext=NumLinesEndOfLine()
 function! NumLinesEndOfLine()
@@ -166,11 +163,8 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
-" easy split navigation http://vimbits.com/bits/10
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" insert $ at end of changed text instead of deleting it
+set cpoptions+=$
 
 " dash - for :Ex
 nnoremap - :Explore<cr>
