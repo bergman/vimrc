@@ -72,7 +72,10 @@ autocmd FileType netrw setl bufhidden=delete
 " make ctrl-6 work again
 let g:netrw_altfile=1
 
-let g:netrw_list_hide= '.*\.swp$,.*\.pyc'
+" hide by default
+let g:netrw_hide=1
+let g:netrw_list_hide= '.*\.py[co],\(^\|\s\s\)\zs\.\S\+'
+
 set timeoutlen=1000 ttimeoutlen=10
 
 set modeline
