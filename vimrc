@@ -6,7 +6,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " colorschemes
 Plugin 'morhetz/gruvbox'
-Plugin 'sickill/vim-monokai'
 
 " functionality
 Plugin 'benmills/vimux'
