@@ -57,9 +57,7 @@ endif
 "{{{ Look and feel
 syntax on
 filetype indent plugin on
-set background=dark
 colorscheme gruvbox
-set background=dark
 highlight Normal ctermbg=NONE
 
 " disable all bells (this is a bit backwards but it works)
