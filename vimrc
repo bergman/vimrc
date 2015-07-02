@@ -24,13 +24,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tsukkee/unite-tag'
 
 " filetype
-Plugin 'derekwyatt/vim-scala'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'pangloss/vim-javascript'
-Plugin 'vim-scripts/jade.vim'
-Plugin 'wavded/vim-stylus'
-Plugin 'wlue/thrift.vim'
+Plugin 'sheerun/vim-polyglot'
 
 call vundle#end()
 "}}}
