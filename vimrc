@@ -81,8 +81,8 @@ set wildmenu
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " show git diff when committing
-autocmd FileType gitcommit DiffGitCached | wincmd L | wincmd p
-autocmd! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+autocmd! BufEnter COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
+autocmd! BufWinLeave COMMIT_EDITMSG pclose
 
 " hides buffers instead of closing when switching to a new one
 "set hidden
