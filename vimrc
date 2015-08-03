@@ -53,6 +53,7 @@ endif
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
+set background=dark
 highlight Normal ctermbg=NONE
 
 " disable all bells (this is a bit backwards but it works)
