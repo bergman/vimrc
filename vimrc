@@ -164,9 +164,6 @@ augroup resCur
   autocmd BufWinEnter * call ResCur()
 augroup END
 
-" insert $ at end of changed text instead of deleting it
-set cpoptions+=$
-
 " dash - for :Ex
 nnoremap - :Explore<cr>
 
