@@ -22,6 +22,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tsukkee/unite-tag'
+Plugin 'wincent/terminus'
 
 " filetype
 Plugin 'sheerun/vim-polyglot'
