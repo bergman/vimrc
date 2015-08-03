@@ -276,16 +276,13 @@ let g:VimuxResetSequence="q C-u C-c"
 nnoremap <leader>z :VimuxPromptCommand<cr>
 nnoremap <leader>x :VimuxRunLastCommand<cr>
 "}}}
-"{{{ Javascript
-autocmd FileType javascript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
+"{{{ Javascript and Coffeescript
+autocmd FileType javascript,coffeescript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
 " console.log word under cursor
-autocmd FileType javascript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
+autocmd FileType javascript,coffeescript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
 " console.log selected text
-autocmd FileType javascript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
-"}}}
-"{{{ Coffeescript
-autocmd FileType coffeescript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
-
+autocmd FileType javascript,coffeescript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
+"
 " coffeescript custom stuff, mark thin and fat arrows differently
 autocmd FileType coffeescript highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
 autocmd FileType coffeescript syntax match coffeeThinArrow /->/
@@ -294,11 +291,6 @@ autocmd FileType coffeescript syntax match coffeeFatArrow /=>/
 autocmd FileType coffeescript highlight coffeeConsole ctermfg=Magenta
 autocmd FileType coffeescript syntax match coffeeConsole /\<console\>/
 autocmd FileType coffeescript syntax match coffeeSpaceError /^\t\+/
-
-" console.log word under cursor
-autocmd FileType coffeescript nnoremap <leader>m yiwoconsole.log("<esc>pa:", <esc>pa)<esc>
-" console.log selected text
-autocmd FileType coffeescript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
 "}}}
 "{{{ Markdown
 autocmd filetype markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
@@ -309,11 +301,12 @@ autocmd filetype markdown nnoremap <leader>2 :t.<cr>Vr-o<cr>
 "}}}
 "{{{ Python
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
-autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab
+autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldlevelstart=0
 
-"folding
-autocmd FileType python setlocal foldmethod=indent foldlevelstart=0
-
+" log word under cursor
+autocmd FileType python nnoremap <leader>n yiwolog.info("<esc>pa: %s", <esc>pa)<esc>
+" log selected text
+autocmd FileType python vnoremap <leader>n yolog.info("<esc>pa: %s", <esc>pa)<esc>
 " print word under cursor
 autocmd FileType python nnoremap <leader>m yiwoprint "<esc>pa: %s" % <esc>pa<esc>
 " print selected text
