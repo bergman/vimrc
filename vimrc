@@ -1,33 +1,30 @@
 "{{{ Plug-ins
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim/
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
+call plug#begin()
 
 " colorschemes
-Plugin 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
 
 " functionality
-Plugin 'benmills/vimux'
-Plugin 'ervandew/ag'
-Plugin 'godlygeek/tabular'
-Plugin 'milkypostman/vim-togglelist'
-Plugin 'scrooloose/syntastic'
-Plugin 'shougo/unite-outline'
-Plugin 'shougo/unite.vim'
-Plugin 'shougo/vimproc.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tsukkee/unite-tag'
-Plugin 'wincent/terminus'
+Plug 'benmills/vimux'
+Plug 'ervandew/ag'
+Plug 'godlygeek/tabular'
+Plug 'milkypostman/vim-togglelist'
+Plug 'scrooloose/syntastic'
+Plug 'shougo/unite-outline'
+Plug 'shougo/unite.vim'
+Plug 'shougo/vimproc.vim', { 'do': 'make' }
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-markdown'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tsukkee/unite-tag'
+Plug 'wincent/terminus'
 
 " filetype
-Plugin 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
-call vundle#end()
+call plug#end()
 "}}}
 "{{{ Searching
 set hlsearch " highlight matches in a search (hls)
@@ -205,8 +202,7 @@ nnoremap <leader>v :tabedit ~/.vim<CR>G
 " sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
 
-" format xml with :Xml
-command Xml %!xmllint --format --recover -
+autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 "}}}
 "{{{ Statusline
 " LEFT:
