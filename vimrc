@@ -5,11 +5,11 @@ call plug#begin()
 Plug 'morhetz/gruvbox'
 
 " functionality
+Plug 'benekastah/neomake'
 Plug 'benmills/vimux'
 Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
 Plug 'milkypostman/vim-togglelist'
-Plug 'scrooloose/syntastic'
 Plug 'shougo/unite-outline'
 Plug 'shougo/unite.vim'
 Plug 'shougo/vimproc.vim', { 'do': 'make' }
@@ -214,11 +214,6 @@ set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
 " enable statusline for all windows
 set laststatus=2
 "}}}
-"{{{ Syntastic
-"let g:syntastic_check_on_open=1
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_python_checkers = ['frosted', 'flake8']
-"}}}
 "{{{ Undo
 if has('persistent_undo')
   set undofile                " Save undo's after file closes
@@ -297,6 +292,9 @@ autocmd filetype markdown nnoremap <leader>1 :t.<cr>Vr=o<cr>
 autocmd filetype markdown nnoremap <leader>2 :t.<cr>Vr-o<cr>
 "}}}
 "{{{ Python
+" perform syntax check for python
+autocmd! BufWritePost *.py Neomake
+
 " make Python follow PEP8 for whitespace (http://www.python.org/dev/peps/pep-0008/)
 autocmd FileType python setlocal softtabstop=4 tabstop=4 shiftwidth=4 expandtab foldmethod=indent foldlevelstart=0
 
