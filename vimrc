@@ -19,7 +19,6 @@ Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tsukkee/unite-tag'
-Plug 'wincent/terminus'
 
 " filetype
 Plug 'sheerun/vim-polyglot'
@@ -47,11 +46,13 @@ if executable('ag')
 endif
 "}}}
 "{{{ Look and feel
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
 set background=dark
-highlight Normal ctermbg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
 
 " disable all bells (this is a bit backwards but it works)
 " see: http://unix.stackexchange.com/a/5313
@@ -276,11 +277,11 @@ autocmd FileType javascript,coffeescript nnoremap <leader>m yiwoconsole.log("<es
 autocmd FileType javascript,coffeescript vnoremap <leader>m yoconsole.log("<esc>pa:", <esc>pa)<esc>
 "
 " coffeescript custom stuff, mark thin and fat arrows differently
-autocmd FileType coffeescript highlight coffeeThinArrow ctermbg=Blue ctermfg=Black
+autocmd FileType coffeescript highlight coffeeThinArrow guibg=Blue ctermbg=Blue guifg=Black ctermfg=Black
 autocmd FileType coffeescript syntax match coffeeThinArrow /->/
-autocmd FileType coffeescript highlight coffeeFatArrow ctermbg=Brown ctermfg=Black
+autocmd FileType coffeescript highlight coffeeFatArrow guibg=Brown ctermbg=Brown guifg=Black ctermfg=Black
 autocmd FileType coffeescript syntax match coffeeFatArrow /=>/
-autocmd FileType coffeescript highlight coffeeConsole ctermfg=Magenta
+autocmd FileType coffeescript highlight coffeeConsole ctermfg=Magenta guifg=Magenta
 autocmd FileType coffeescript syntax match coffeeConsole /\<console\>/
 autocmd FileType coffeescript syntax match coffeeSpaceError /^\t\+/
 "}}}
