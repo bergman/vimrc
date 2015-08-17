@@ -9,6 +9,8 @@ Plug 'benekastah/neomake'
 Plug 'benmills/vimux'
 Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'lilydjwg/colorizer'
 Plug 'milkypostman/vim-togglelist'
 Plug 'shougo/unite-outline'
 Plug 'shougo/unite.vim'
@@ -52,9 +54,10 @@ syntax on
 filetype indent plugin on
 colorscheme gruvbox
 set background=dark
-highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#282828
-highlight Folded ctermbg=235 guibg=#282828
+"highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#2E2E2E
+highlight CursorLine ctermbg=235 guibg=#303030
+highlight Folded ctermbg=235 guibg=#3A3A3A
 set cursorline
 
 " disable all bells (this is a bit backwards but it works)
@@ -75,12 +78,10 @@ let g:netrw_list_hide= '.*\.py[co],\(^\|\s\s\)\zs\.\S\+'
 
 set timeoutlen=1000 ttimeoutlen=10
 
-set modeline
-set modelines=3
+set modeline modelines=3
 
 "set wildmode=longest,list,full
-set wildmode=longest,list:longest
-set wildmenu
+set wildmenu wildmode=longest,list:longest
 set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " show git diff when committing
@@ -93,12 +94,8 @@ autocmd! BufWinLeave COMMIT_EDITMSG pclose
 " what to save in sessions, default except no options
 set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
 
-" defaults, space instead of tabs
-set expandtab
-
-" set tabstop to 2 spaces
-set tabstop=2
-set shiftwidth=2
+" defaults, space instead of tabs, set tabstop to 2 spaces
+set expandtab tabstop=2 shiftwidth=2
 
 " disable swap and backup files
 "set nobackup noswapfile
@@ -112,8 +109,6 @@ set number " show line numbers
 set listchars=trail:-,tab:>-
 set list
 set fillchars="vert:|,fold:"
-"set splitbelow
-"set splitright
 set nowrap
 set backspace=indent,eol,start " allow backspacing over these
 set formatoptions-=o " don't continue comments on o/O
@@ -234,17 +229,18 @@ if executable('ag')
   let g:unite_source_grep_command='ag'
   let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
   let g:unite_source_grep_recursive_opt=''
-  let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
+  "let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
+  let g:unite_source_rec_neovim_command='ag --follow --nocolor --nogroup --hidden -g ""'
 endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-"call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec/async,file_rec/git', 'sorters', ['sorter_length'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+"call unite#custom#source('file_rec/neovim,file_rec/async,file_rec/git', 'sorters', ['sorter_length'])
 
 nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
-nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/async<cr>
+nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/neovim<cr>
 nnoremap <silent> <leader>. :Unite -no-split -start-insert -ignorecase tag<cr>
-nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/async tag<cr>
+nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/neovim tag<cr>
 nnoremap <silent> <leader>y :Unite history/yank<cr>
 nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
 nnoremap <silent> <leader>o :Unite -no-split outline<cr>
