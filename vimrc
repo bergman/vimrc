@@ -76,8 +76,7 @@ set timeoutlen=1000 ttimeoutlen=10
 set modeline modelines=3
 
 "set wildmode=longest,list,full
-set wildmenu wildmode=longest,list:longest
-set wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
+set wildmenu wildmode=longest,list:longest wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " show git diff when committing
 autocmd! BufEnter COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
