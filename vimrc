@@ -54,11 +54,6 @@ syntax on
 filetype indent plugin on
 colorscheme gruvbox
 set background=dark
-"highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr ctermfg=243 ctermbg=235 guifg=#7c6f64 guibg=#2E2E2E
-highlight CursorLine ctermbg=235 guibg=#303030
-highlight Folded ctermbg=235 guibg=#3A3A3A
-set cursorline
 
 " disable all bells (this is a bit backwards but it works)
 " see: http://unix.stackexchange.com/a/5313
