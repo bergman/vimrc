@@ -17,7 +17,6 @@ Plug 'shougo/unite.vim'
 Plug 'shougo/vimproc.vim', { 'do': 'make' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-git'
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tsukkee/unite-tag'
