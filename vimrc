@@ -83,9 +83,6 @@ autocmd! BufWinLeave COMMIT_EDITMSG pclose
 " hides buffers instead of closing when switching to a new one
 "set hidden
 
-" what to save in sessions, default except no options
-set sessionoptions=blank,buffers,curdir,folds,help,localoptions,tabpages,winsize
-
 " defaults, space instead of tabs, set tabstop to 2 spaces
 set expandtab tabstop=2 shiftwidth=2
 
