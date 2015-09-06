@@ -51,7 +51,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
-set background=dark
+if $ITERM_PROFILE =~ 'light'
+  set background=light
+else
+  set background=dark
+endif
 
 " disable all bells (this is a bit backwards but it works)
 " see: http://unix.stackexchange.com/a/5313
