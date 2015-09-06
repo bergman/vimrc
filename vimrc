@@ -84,8 +84,8 @@ set wildmenu wildmode=longest,list:longest wildignore+=*.pyc,.DS_Store,*.class,d
 autocmd! BufEnter COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
 autocmd! BufWinLeave COMMIT_EDITMSG pclose
 
-" defaults, space instead of tabs, set tabstop to 2 spaces
-set expandtab tabstop=2 shiftwidth=2
+" defaults, space instead of tabs, set tabstop to 4 spaces
+set expandtab tabstop=4 shiftwidth=4
 
 " disable swap and backup files
 "set nobackup noswapfile
