@@ -84,9 +84,6 @@ set wildmenu wildmode=longest,list:longest wildignore+=*.pyc,.DS_Store,*.class,d
 autocmd! BufEnter COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
 autocmd! BufWinLeave COMMIT_EDITMSG pclose
 
-" hides buffers instead of closing when switching to a new one
-"set hidden
-
 " defaults, space instead of tabs, set tabstop to 2 spaces
 set expandtab tabstop=2 shiftwidth=2
 
