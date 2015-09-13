@@ -7,6 +7,7 @@ Plug 'morhetz/gruvbox'
 " functionality
 Plug 'benekastah/neomake'
 Plug 'benmills/vimux'
+Plug 'bronson/vim-visual-star-search'
 Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -29,17 +30,6 @@ call plug#end()
 set hlsearch " highlight matches in a search (hls)
 set incsearch " show the current matching pattern as you search (is)
 nnoremap <silent> <leader><space> :nohlsearch<cr>:syntax sync fromstart<cr>
-
-" Visual star search
-" http://got-ravings.blogspot.se/2008/07/vim-pr0n-visual-search-mappings.html
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
-endfunction
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
