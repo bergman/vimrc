@@ -68,6 +68,8 @@ let g:netrw_altfile=1
 let g:netrw_hide=1
 let g:netrw_list_hide= '.*\.py[co],\(^\|\s\s\)\zs\.\S\+'
 
+let g:netrw_banner = 0
+
 set timeoutlen=1000 ttimeoutlen=10
 
 set modeline modelines=3
