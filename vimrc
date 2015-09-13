@@ -41,10 +41,10 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
-if $ITERM_PROFILE =~ 'light'
-  set background=light
-else
+if $ITERM_PROFILE =~ 'dark'
   set background=dark
+else
+  set background=light
 endif
 
 set showcmd
