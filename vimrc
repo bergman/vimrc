@@ -47,6 +47,11 @@ else
   set background=dark
 endif
 
+set showcmd
+set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
+" enable statusline for all windows
+set laststatus=2
+
 " disable all bells (this is a bit backwards but it works)
 " see: http://unix.stackexchange.com/a/5313
 " see: :h visualbell
@@ -182,16 +187,6 @@ nnoremap <leader>v :tabedit ~/.vim<CR>G
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
 
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
-"}}}
-"{{{ Statusline
-" LEFT:
-" relative filename, [help][modified][readonly] arguments (file 1 of 3)
-" RIGHT:
-" row,col
-" set statusline=%<%f\ %h%m%r\ %a%=%l,%c,%P
-set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
-" enable statusline for all windows
-set laststatus=2
 "}}}
 "{{{ Undo
 if has('persistent_undo')
