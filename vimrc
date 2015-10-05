@@ -277,6 +277,7 @@ autocmd FileType coffeescript syntax match coffeeConsole /\<console\>/
 autocmd FileType coffeescript syntax match coffeeSpaceError /^\t\+/
 "}}}
 "{{{ Markdown
+let g:markdown_folding=1
 autocmd filetype markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
 
 " headers
