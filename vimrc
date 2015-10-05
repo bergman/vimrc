@@ -36,6 +36,12 @@ endif
 
 set tags=./.tags;~
 "}}}
+"{{{ Neovim
+if has("nvim")
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <C-w><C-w> <C-\><C-n><C-w><C-w>
+endif
+"}}}
 "{{{ Look and feel
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
