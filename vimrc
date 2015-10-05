@@ -317,9 +317,7 @@ endfunction
 " If text is selected, save it in the v buffer and send that buffer to tmux
 autocmd FileType python vnoremap <leader>r y :call VimuxSlime(@")<CR>
 "}}}
-"{{{ Machine local settings in ~/.vimrc.local
-if filereadable(glob("~/.vimrc.local")) 
+if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
-"}}}
 " vim: ft=vim fdm=marker et
