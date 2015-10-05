@@ -252,6 +252,13 @@ let g:VimuxHeight = "10"
 let g:VimuxResetSequence="q C-u C-c"
 nnoremap <leader>z :VimuxPromptCommand<cr>
 nnoremap <leader>x :VimuxRunLastCommand<cr>
+
+function! VimuxRunLast()
+  call VimuxSendKeys("C-c")
+  call VimuxSendKeys("Up")
+  call VimuxSendKeys("Enter")
+endfunction
+nnoremap <leader>r :call VimuxRunLast()<cr>
 "}}}
 "{{{ Javascript and Coffeescript
 autocmd FileType javascript,coffeescript setlocal foldmethod=indent shiftwidth=2 expandtab nosmartindent
