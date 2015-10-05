@@ -10,7 +10,6 @@ Plug 'benmills/vimux'
 Plug 'bronson/vim-visual-star-search'
 Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'lilydjwg/colorizer'
 Plug 'milkypostman/vim-togglelist'
 Plug 'shougo/unite-outline'
