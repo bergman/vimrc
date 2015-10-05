@@ -33,6 +33,8 @@ nnoremap <silent> <leader><space> :nohlsearch<cr>:syntax sync fromstart<cr>
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 endif
+
+set tags=./.tags;~
 "}}}
 "{{{ Look and feel
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
