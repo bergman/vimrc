@@ -209,27 +209,28 @@ endif
 " http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
 let g:unite_data_directory='~/.vim/.unite'
 let g:unite_source_history_yank_enable=1
+let g:unite_split_rule='no-split'
+let g:unite_source_rec_max_cache_files=0
+
 if executable('ag')
   let g:unite_source_grep_command='ag'
   let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
   let g:unite_source_grep_recursive_opt=''
-  "let g:unite_source_rec_async_command='ag --follow --nocolor --nogroup --hidden -g ""'
-  let g:unite_source_rec_neovim_command='ag --follow --nocolor --nogroup --hidden -g ""'
+  let g:unite_source_rec_async_command=['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
 endif
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-"call unite#custom#source('file_rec/neovim,file_rec/async,file_rec/git', 'sorters', ['sorter_length'])
 
-nnoremap <silent> <leader>\ :Unite -no-split -start-insert buffer<cr>
-nnoremap <silent> <leader>, :Unite -no-split -input= -start-insert file_rec/neovim<cr>
-nnoremap <silent> <leader>. :Unite -no-split -start-insert -ignorecase tag<cr>
-nnoremap <silent> <leader>' :Unite -no-split -start-insert buffer file_rec/neovim tag<cr>
+nnoremap <silent> <leader>\ :Unite -start-insert buffer<cr>
+nnoremap <silent> <leader>, :Unite -start-insert -input= file_rec/git<cr>
+"nnoremap <silent> <leader>, :Unite -start-insert -input= file_rec/neovim<cr>
+nnoremap <silent> <leader>. :Unite -start-insert -ignorecase tag<cr>
+nnoremap <silent> <leader>' :Unite -start-insert buffer file_rec/neovim tag<cr>
 nnoremap <silent> <leader>y :Unite history/yank<cr>
 nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
-nnoremap <silent> <leader>o :Unite -no-split outline<cr>
+nnoremap <silent> <leader>o :Unite outline<cr>
 nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
-
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
