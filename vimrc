@@ -18,6 +18,7 @@ Plug 'shougo/vimproc.vim', { 'do': 'make' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'tsukkee/unite-tag'
 
 " filetype
@@ -71,12 +72,6 @@ autocmd FileType netrw setl bufhidden=delete
 
 " make ctrl-6 work again
 let g:netrw_altfile=1
-
-" hide by default
-let g:netrw_hide=1
-let g:netrw_list_hide= '.*\.py[co],\(^\|\s\s\)\zs\.\S\+'
-
-let g:netrw_banner = 0
 
 set timeoutlen=1000 ttimeoutlen=10
 
@@ -155,9 +150,6 @@ augroup resCur
   autocmd!
   autocmd BufWinEnter * call ResCur()
 augroup END
-
-" dash - for :Ex
-nnoremap - :Explore<cr>
 
 " disable shift-k for man pages
 nnoremap K <Nop>
