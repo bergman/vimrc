@@ -53,6 +53,7 @@ if $ITERM_PROFILE =~ 'dark'
 else
   set background=light
 endif
+highlight Normal guibg=NONE
 
 set showcmd
 set statusline=%<%f\ %h%m%r\ %a%=%-14.(%l,%c%V%)\ %P
