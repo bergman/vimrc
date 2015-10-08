@@ -159,12 +159,60 @@ command! Highlight :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
       \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
       \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-nnoremap ]l :lwindow<cr>:lnext<cr>zx
-nnoremap [l :lwindow<cr>:lprevious<cr>zx
-nnoremap ]q :cwindow<cr>:cnext<cr>zx
-nnoremap [q :cwindow<cr>:cprevious<cr>zx
-nnoremap ]w :cwindow<cr>:cnfile<cr>zx
-nnoremap [w :cwindow<cr>:cpfile<cr>zx
+function! QuickFixPreviousFile()
+  try
+    cpfile
+  catch /^Vim\%((\a\+)\)\=:E553/
+    clast
+  endtry
+endfunction
+
+function! QuickFixNextFile()
+  try
+    cnfile
+  catch /^Vim\%((\a\+)\)\=:E553/
+    cfirst
+  endtry
+endfunction
+
+function! QuickFixPrevious()
+  try
+    cprev
+  catch /^Vim\%((\a\+)\)\=:E553/
+    clast
+  endtry
+endfunction
+
+function! QuickFixNext()
+  try
+    cnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    cfirst
+  endtry
+endfunction
+
+function! LocationPrevious()
+  try
+    lprev
+  catch /^Vim\%((\a\+)\)\=:E553/
+    llast
+  endtry
+endfunction
+
+function! LocationNext()
+  try
+    lnext
+  catch /^Vim\%((\a\+)\)\=:E553/
+    lfirst
+  endtry
+endfunction
+
+nnoremap ]l :call LocationNext()<cr>zx
+nnoremap [l :call LocationPrevious()<cr>zx
+nnoremap ]q :call QuickFixNext()<cr>zx
+nnoremap [q :call QuickFixPrevious()<cr>zx
+nnoremap ]x :call QuickFixNextFile()<cr>zx
+nnoremap [x :call QuickFixPreviousFile()<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
 nnoremap ]u :UniteNext<cr>
