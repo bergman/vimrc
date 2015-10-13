@@ -211,8 +211,8 @@ nnoremap ]l :call LocationNext()<cr>zx
 nnoremap [l :call LocationPrevious()<cr>zx
 nnoremap ]q :call QuickFixNext()<cr>zx
 nnoremap [q :call QuickFixPrevious()<cr>zx
-nnoremap ]x :call QuickFixNextFile()<cr>zx
-nnoremap [x :call QuickFixPreviousFile()<cr>zx
+nnoremap ]w :call QuickFixNextFile()<cr>zx
+nnoremap [w :call QuickFixPreviousFile()<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
 nnoremap ]u :UniteNext<cr>
