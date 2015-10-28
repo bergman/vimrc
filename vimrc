@@ -53,6 +53,7 @@ if $ITERM_PROFILE =~ 'dark'
   set background=dark
 else
   set background=light
+  highlight Folded guibg=#F5EDD3
 endif
 highlight Normal guibg=NONE
 
