@@ -236,7 +236,7 @@ nnoremap <leader>H O<C-R>=strftime("%Y-%m-%d %H.%M")<cr><esc>
 nnoremap <silent> <leader>o <c-w>}
 
 " open ~/.vim with leader-v
-nnoremap <leader>v :tabedit ~/.vim<CR>G
+nnoremap <leader>v :edit $MYVIMRC<CR>
 
 " sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
