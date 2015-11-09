@@ -49,11 +49,11 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
-if $ITERM_PROFILE =~ 'dark'
-  set background=dark
-else
+if $ITERM_PROFILE =~ 'light'
   set background=light
   highlight Folded guibg=#F5EDD3
+else
+  set background=dark
 endif
 highlight Normal guibg=NONE
 
