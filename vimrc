@@ -240,8 +240,6 @@ nnoremap <leader>v :edit $MYVIMRC<CR>
 
 " sort comma-space separated words on a line
 nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
-
-autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 "}}}
 "{{{ Undo
 if has('persistent_undo')
@@ -362,6 +360,9 @@ endfunction
 
 " If text is selected, save it in the v buffer and send that buffer to tmux
 autocmd FileType python vnoremap <leader>r y :call VimuxSlime(@")<CR>
+"}}}
+"{{{ XML
+autocmd FileType xml setlocal foldmethod=indent equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 "}}}
 if filereadable(glob("~/.vimrc.local"))
   source ~/.vimrc.local
