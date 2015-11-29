@@ -239,7 +239,7 @@ nnoremap <silent> <leader>o <c-w>}
 nnoremap <leader>v :edit $MYVIMRC<CR>
 
 " sort comma-space separated words on a line
-nnoremap <silent> <leader>s ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
+command SortCommaSeparated ::call setline(line('.'),join(sort(split(getline('.'), ',\s*')), ', '))<cr>
 "}}}
 "{{{ Undo
 if has('persistent_undo')
