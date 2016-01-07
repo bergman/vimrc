@@ -184,7 +184,7 @@ function! QuickFixPrevious()
   try
     cprev
   catch /^Vim\%((\a\+)\)\=:E553/
-    clast
+    cfirst
   endtry
 endfunction
 
@@ -192,7 +192,7 @@ function! QuickFixNext()
   try
     cnext
   catch /^Vim\%((\a\+)\)\=:E553/
-    cfirst
+    clast
   endtry
 endfunction
 
