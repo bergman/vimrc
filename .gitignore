@@ -1,8 +1,8 @@
-autoload
-plugged
-.backup
-.cache
-.netrwhist
-.swap
-.undo
-.unite
+/autoload
+/plugged
+/.backup
+/.cache
+/.netrwhist
+/.swap
+/.undo
+/.unite
