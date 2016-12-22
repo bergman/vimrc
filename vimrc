@@ -12,14 +12,12 @@ Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
 Plug 'lilydjwg/colorizer'
 Plug 'milkypostman/vim-togglelist'
-Plug 'shougo/unite-outline'
-Plug 'shougo/unite.vim'
+Plug 'shougo/denite.nvim'
 Plug 'shougo/vimproc.vim', { 'do': 'make' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'tsukkee/unite-tag'
 
 " filetype
 Plug 'sheerun/vim-polyglot'
@@ -221,8 +219,8 @@ nnoremap ]w :call QuickFixNextFile()<cr>zx
 nnoremap [w :call QuickFixPreviousFile()<cr>zx
 nnoremap ]t :ptnext<cr>
 nnoremap [t :ptprevious<cr>
-nnoremap ]u :UniteNext<cr>
-nnoremap [u :UnitePrevious<cr>
+nnoremap ]u :Denite -resume -select=+1 -immediately<cr>
+nnoremap [u :Denite -resume -select=-1 -immediately<cr>
 
 " mappa svenska Ö till kolon om man råkar köra svenskt tangentbord
 nnoremap Ö :
@@ -250,45 +248,30 @@ if has('persistent_undo')
   set undoreload=10000        " number of lines to save for undo
 endif
 "}}}
-"{{{ Unite.vim
-" http://www.reddit.com/r/vim/comments/26470p/how_are_you_using_unitevim/cho9wz5
-let g:unite_data_directory='~/.vim/.unite'
-let g:unite_source_history_yank_enable=1
-let g:unite_split_rule='no-split'
-let g:unite_source_rec_max_cache_files=0
+"{{{ denite
+"call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#source('file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source('file_rec', 'matchers', ['matcher_cpsm'])
+call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+call denite#custom#source('file_mru', 'converters', ['converter_relative_word'])
 
-if executable('ag')
-  let g:unite_source_grep_command='ag'
-  let g:unite_source_grep_default_opts='--nocolor --nogroup --line-numbers'
-  let g:unite_source_grep_recursive_opt=''
-  let g:unite_source_rec_async_command=['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
-endif
+" Define alias
+call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
 
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
+" Change ignore_globs
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+      \ [ '.git/', '.ropeproject/', '__pycache__/',
+      \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nnoremap <silent> <leader>\ :Unite -start-insert buffer<cr>
-nnoremap <silent> <leader>, :Unite -start-insert -input= file_rec/git<cr>
-"nnoremap <silent> <leader>, :Unite -start-insert -input= file_rec/neovim<cr>
-nnoremap <silent> <leader>. :Unite -start-insert -ignorecase tag<cr>
-nnoremap <silent> <leader>' :Unite -start-insert buffer file_rec/neovim tag<cr>
-nnoremap <silent> <leader>y :Unite history/yank<cr>
-nnoremap <silent> <leader>t :UniteWithCursorWord tag<cr>
-nnoremap <silent> <leader>o :Unite outline<cr>
-nnoremap <silent> <leader>g :Unite -start-insert grep<cr>
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  imap <silent><buffer><expr> <C-x> unite#do_action('below')
-  imap <silent><buffer><expr> <C-v> unite#do_action('right')
-  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
-  nmap <buffer> <C-j>     <Plug>(unite_toggle_auto_preview)
-
-  nmap <buffer> <F5> <Plug>(unite_redraw)
-  nmap <buffer> <ESC><ESC> <Plug>(unite_exit)
-endfunction
+nnoremap <silent> <leader>\ :Denite -auto-resize -reversed buffer<cr>
+nnoremap <silent> <leader>, :Denite -auto-resize -reversed file_rec/git<cr>
+nnoremap <silent> <leader>. :Denite -auto-resize -reversed -ignorecase tag<cr>
+nnoremap <silent> <leader>' :Denite -auto-resize -reversed file_rec/neovim tag<cr>
+nnoremap <silent> <leader>y :Denite -auto-resize -reversed history/yank<cr>
+nnoremap <silent> <leader>t :DeniteCursorWord -auto-resize -reversed tag<cr>
 "}}}
 "{{{ Vimux
 let g:VimuxHeight = "10"
