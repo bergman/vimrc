@@ -35,16 +35,14 @@ endif
 
 set tags=./.tags;~
 "}}}
-"{{{ Neovim
+"{{{ Look and feel
 if has("nvim")
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  set termguicolors
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-w><C-w> <C-\><C-n><C-w><C-w>
 endif
-"}}}
-"{{{ Look and feel
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-set termguicolors
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
@@ -266,11 +264,11 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
       \ [ '.git/', '.ropeproject/', '__pycache__/',
       \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nnoremap <silent> <leader>\ :Denite -auto-resize -reversed buffer<cr>
-nnoremap <silent> <leader>, :Denite -auto-resize -reversed file_rec/git<cr>
+nnoremap <silent> <leader>\ :Denite -auto-resize -reversed -ignorecase buffer<cr>
+nnoremap <silent> <leader>, :Denite -auto-resize -reversed -ignorecase file_rec/git<cr>
 nnoremap <silent> <leader>. :Denite -auto-resize -reversed -ignorecase tag<cr>
-nnoremap <silent> <leader>' :Denite -auto-resize -reversed file_rec/neovim tag<cr>
-nnoremap <silent> <leader>y :Denite -auto-resize -reversed history/yank<cr>
+nnoremap <silent> <leader>' :Denite -auto-resize -reversed -ignorecase file_rec/git tag<cr>
+nnoremap <silent> <leader>y :Denite -auto-resize -reversed -ignorecase history/yank<cr>
 nnoremap <silent> <leader>t :DeniteCursorWord -auto-resize -reversed tag<cr>
 "}}}
 "{{{ Vimux
