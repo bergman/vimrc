@@ -8,6 +8,7 @@ Plug 'morhetz/gruvbox'
 Plug 'benekastah/neomake'
 Plug 'benmills/vimux'
 Plug 'bronson/vim-visual-star-search'
+Plug 'eiginn/netrw'
 Plug 'ervandew/ag'
 Plug 'godlygeek/tabular'
 Plug 'lilydjwg/colorizer'
@@ -37,8 +38,6 @@ set tags=./.tags;~
 "}}}
 "{{{ Look and feel
 if has("nvim")
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
   set termguicolors
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-w><C-w> <C-\><C-n><C-w><C-w>
@@ -46,11 +45,11 @@ endif
 syntax on
 filetype indent plugin on
 colorscheme gruvbox
-if $ITERM_PROFILE =~ 'light'
+if $ITERM_PROFILE =~ 'dark'
+  set background=dark
+else
   set background=light
   highlight Folded guibg=#F5EDD3
-else
-  set background=dark
 endif
 highlight Normal guibg=NONE
 
@@ -79,7 +78,7 @@ set modeline modelines=3
 set wildmenu wildmode=longest,list:longest wildignore+=*.pyc,.DS_Store,*.class,dump,.git/,*/.git/
 
 " show git diff when committing
-autocmd! BufEnter COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
+autocmd! BufRead COMMIT_EDITMSG DiffGitCached | wincmd H | wincmd p | wincmd H | call setpos('.', [0, 1, 1, 0])
 autocmd! BufWinLeave COMMIT_EDITMSG pclose
 
 " defaults, space instead of tabs, set tabstop to 4 spaces
@@ -304,7 +303,7 @@ autocmd FileType coffeescript syntax match coffeeSpaceError /^\t\+/
 "}}}
 "{{{ Markdown
 let g:markdown_folding=1
-autocmd filetype markdown setlocal textwidth=72 formatoptions=cqt wrapmargin=0 expandtab autoindent
+autocmd filetype markdown setlocal textwidth=100 formatoptions=cqt wrapmargin=0 expandtab autoindent
 
 " headers
 autocmd filetype markdown nnoremap <leader>1 :t.<cr>Vr=o<cr>
